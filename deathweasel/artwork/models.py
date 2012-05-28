@@ -14,6 +14,7 @@ def getFilePath(instance, filename):
 
     hash_string = hash(''.join((str(instance.title), str(instance.artist),\
         filename)))
+    hash_string = str(hash_string).replace('-','')
     return 'images/%s/%s.%s' % (str(instance.medium), hash_string, file_extension)
 
 	
@@ -30,23 +31,21 @@ class ArtworkModel(models.Model):
     artist = models.CharField(max_length=200)
     image = models.ImageField(upload_to=getFilePath)
 
+    class Meta:
+        ordering = ['title']
 
     def __unicode__(self):
         return '-'.join((self.title, self.artist, self.medium))
 
-    def getFilePath(self, instance, filename):
-        """
-            This makes a hopefully unique filename by hashing together
-            a string formed of the upload_date, artist, and filename.
-            We then return a string representing the url that the file goes to.
-        """
-        file_extension = '.'.split(filename)[1]
-
-        hash_string = hash(''.join((str(instance.title), str(instance.artist),\
-            filename)))
-        return 'images/%s/%s.%s' % (str(instance.medium), hash_string, file_extension)
-
 class CommentModel(models.Model):
+    """
+        This class contains the information necessary to describe a comment
+        that someone's left about a piece of artwork. 
+    """
     commenteer = models.CharField(max_length=200, blank=False)
     comment_body = models.TextField(blank=False)
     artwork = models.ForeignKey(ArtworkModel)
+    date = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['date']
