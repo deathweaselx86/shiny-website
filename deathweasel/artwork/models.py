@@ -25,8 +25,17 @@ class ArtworkModel(models.Model):
         unnecessary, but I'm throwing it in because I'd like to be able
         to upload collaborations.
     """
+    MEDIUMS = (('ink', 'ink'),
+               ('graphite', 'graphite'),
+               ('watercolor', 'watercolor'),
+               ('oil', 'oil'),
+               ('acrylic', 'acrylic'),
+               ('digital', 'digital'),
+               ('sculpture', 'sculpture'),
+               ('other','other'))
+
     title = models.CharField(max_length=200)
-    medium = models.CharField(max_length=200, default="Ink")
+    medium = models.CharField(max_length=200, choices=MEDIUMS, default='graphite')
     upload_date = models.DateTimeField(auto_now_add=True)
     artist = models.CharField(max_length=200)
     image = models.ImageField(upload_to=getFilePath)

@@ -17,15 +17,9 @@ from django.conf import settings
 from PIL import Image
 import os
     
-try:
-    from sorl.thumbnail.main import DjangoThumbnail
-    def thumbnail(image_path):
-        t = DjangoThumbnail(relative_source=image_path, requested_size=(200,200))
-        return '<img src="%s" alt="%s"/>' % (t.absolute_url, image_path)
-except:
-    def thumbnail(image_path):
-        absolute_url = os.path.join(settings.MEDIA_ROOT, image_path)
-        return '<img src="%s" alt="%s"/>' % (absolute_url, image_path)
+def thumbnail(image_path):
+    absolute_url = os.path.join(settings.MEDIA_URL, image_path)
+    return '<img src="%s" alt="%s"/>' % (absolute_url, image_path)
 
 
 class AdminImageWidget(AdminFileWidget):
