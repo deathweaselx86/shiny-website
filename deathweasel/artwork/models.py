@@ -39,7 +39,7 @@ class ArtworkModel(models.Model):
     upload_date = models.DateTimeField(auto_now_add=True)
     artist = models.CharField(max_length=200)
     image = models.ImageField(upload_to=getFilePath)
-
+    desc = models.TextField()
     class Meta:
         ordering = ['title']
 

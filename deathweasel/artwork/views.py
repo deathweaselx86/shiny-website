@@ -7,7 +7,10 @@ from artwork.models import ArtworkModel
 from django.http import HttpResponse
 
 from django.views.generic.list import ListView
-from django.views.generic import DetailView
+from django.views.generic import DetailView, TemplateView
+
+class IndexView(TemplateView):
+    template_name = "frontpage.html"
 
 class ArtListView(ListView):
     pass
