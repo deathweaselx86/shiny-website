@@ -1,10 +1,22 @@
 {% extends "generic_base.html" %}
 {% block title %} 
-    Artwork
+    deathweasel.net: {{artwork.title}}
 {% endblock %}
 {% block content  %}
     {% for artwork in object_list %}
-        <li> {{ artwork.title }} </li>
+    <section>
+    <h2>{{artwork.title}}<br/></h2>
+    <figure>
+        <img src="/media/{{ artwork.image }}"/>
+    </figure>
+        <section>
+        Title: {{artwork.title}}<br/>
+        Medium: {{artwork.medium}}<br/>
+        Artist: {{artwork.artist}}<br/>
+        Description: <br/>
+        {{artwork.desc}}
+        </section>    
+    </section>
     {% endfor %}
 {% endblock %}
 

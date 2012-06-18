@@ -1,18 +1,36 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-
-	<head>
-		<link rel="javascript" href="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js">
-		<link rel="javascript" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js">
-        <link rel="stylesheet" href="http://www.deathweasel.net/static/css/black-tie/jquery-ui-1.8.20.custom.css">
-        <title> {% block title %} deathweasel.net {% endblock %} </title>
+    <head>
+        <meta charset="utf-8"/>
+        <!--[if IE] > 
+        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script> 
+        <![endif]-->
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+        <script src="javascript" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
+        <link rel="stylesheet" href="http://www.deathweasel.net/static/css/shiny/shiny.css">
+        <title> {% block title %}{% endblock %} </title>
 	</head>
 	<body>
-    <div width = "800 px">
+    <header>
+    <h2>deathweasel.net</h2>
+    </header>
+    <nav>
+        Links
+        <ul>
+            <li><a class="hidden" href="http://deathweaselx86.deviantart.com">deathweaselx86 deviantArt gallery</a></li>
+            <li><a class="hidden" href="http://www.arduino.cc">Arduino Open Source Hardware site </a></li>
+            <li><a class="hidden" href="http://www.avrfreaks.net">AVR Freaks</a></li>
+            <li><a class="hidden" href="http://www.atxhackerspace.org">ATX Hackerspace</a></li>
+        </ul>
+        </nav>
+        <div id="container">
         {% block content %}
-            $content
-            {% endblock %}
+        {% endblock %}
+        </div>
+        <footer>
+        <small> This page is &copy; copyright Jessica Ross 2012.</small>
+        </footer>
     </div>
+    
     </body>
 </html>
