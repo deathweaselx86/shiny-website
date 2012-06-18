@@ -13,8 +13,12 @@ class IndexView(TemplateView):
     template_name = "frontpage.html"
 
 class ArtListView(ListView):
-    pass
+    template_name = 'artwork/artworkmodel_list.html'
+    model = ArtworkModel
+    paginate_by=10
 
-
+    def dispatch(self, *args, **kwargs):
+        return super(ArtListView, self).dispatch(*args,**kwargs) 
+    
 class ArtModelView(DetailView):
     pass
