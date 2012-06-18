@@ -41,4 +41,5 @@ class ArtworkAdmin(admin.ModelAdmin):
             models.ImageField: {'widget': AdminImageWidget},
             }
 admin.site.register(CommentModel)
-admin.site.register(ArtworkModel, ArtworkAdmin)
+admin.site.register(ArtworkModel)
+#admin.site.register(ArtworkModel, ArtworkAdmin)
