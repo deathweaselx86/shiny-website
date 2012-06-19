@@ -10,9 +10,10 @@
         <link rel="stylesheet" href="http://www.deathweasel.net/static/css/shiny/shiny.css">
         <title> {% block title %}{% endblock %} </title>
 	</head>
-	<body>
+    <body>
+    <div id="container">
     <header>
-    <h2>deathweasel.net</h2>
+    <h1>deathweasel.net</h1>
     </header>
     <nav>
         Links
@@ -23,14 +24,11 @@
             <li><a class="hidden" href="http://www.atxhackerspace.org">ATX Hackerspace</a></li>
         </ul>
         </nav>
-        <div id="container">
         {% block content %}
         {% endblock %}
-        </div>
         <footer>
         <small> This page is &copy; copyright Jessica Ross 2012.</small>
         </footer>
-    </div>
-    
+        </div>
     </body>
 </html>

@@ -3,20 +3,22 @@
     deathweasel.net: {{artwork.title}}
 {% endblock %}
 {% block content  %}
+    <article>
     {% for artwork in object_list %}
-    <section>
-    <h2>{{artwork.title}}<br/></h2>
-    <figure>
-        <img src="/media/{{ artwork.image }}"/>
-    </figure>
         <section>
-        Title: {{artwork.title}}<br/>
-        Medium: {{artwork.medium}}<br/>
-        Artist: {{artwork.artist}}<br/>
-        Description: <br/>
-        {{artwork.desc}}
+            <header>
+            <h3>{{artwork.title}}</h3>
+            </header>
+            <figure>
+                <img src="/media/{{ artwork.image }}"/>
+            </figure>
+            <br />
+            Medium: {{artwork.medium}}<br/>
+            Artist: {{artwork.artist}}<br/>
+            Description: <br/>
+            {{artwork.desc}}<br/>
         </section>    
-    </section>
     {% endfor %}
+    </article>
 {% endblock %}
 
