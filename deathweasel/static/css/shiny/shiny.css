@@ -1,0 +1,55 @@
+body   {
+        padding: 10px 10px 10px 25px;
+        background-color: white;
+        border: 1px solid black;
+        }
+
+    
+/* This is here for the consumption of certain browsers that do not support HTML5 */
+aside, details, figcaption, figure, footer, header, hgroup, nav, section { 
+        display: block; 
+    }
+
+div#container {
+    width: 900px;
+    background-color: #DDDDDA;
+    border: 1px solid black;
+    }
+
+figure {
+    padding: 25px;
+    }
+
+nav {
+        background-color: #BBBBBA;
+        border: 1px solid black;
+        padding-left: 10px;
+        margin: 0px 10px 25px 10px;
+        width: 870px;
+}
+article {
+        background-color: #99999A;
+        margin: 0px 10px 25px 10px;
+        border: 1px solid black;
+        width: 880px; 
+    }
+
+section {
+    padding: 0px;
+    width: 880px;
+}
+
+figure {
+    padding: 10px;
+    border: 1px solid black;
+    float: left;
+    clear: both;
+}
+
+figure + br {
+    clear: both;
+}
+    /* div#container > header {
+        color: white;
+        background-color: black;
+        } */
