@@ -11,11 +11,12 @@
         <title> {% block title %}{% endblock %} </title>
 	</head>
     <body>
-    <div id="container">
-    <header>
+        <header id="main">
     <h1>deathweasel.net</h1>
     </header>
-    <nav>
+    <div id="container">
+        <aside>
+        <nav>
         Links
         <ul>
             <li><a class="hidden" href="http://deathweaselx86.deviantart.com">deathweaselx86 deviantArt gallery</a></li>
@@ -23,9 +24,18 @@
             <li><a class="hidden" href="http://www.avrfreaks.net">AVR Freaks</a></li>
             <li><a class="hidden" href="http://www.atxhackerspace.org">ATX Hackerspace</a></li>
         </ul>
+        <br/>
+        Hosted Artwork
+        <ul>
+            <li><a class="hidden" href="http://www.deathweasel.net/artwork/">List of all artwork</a>
+        </ul>
         </nav>
+        </aside>
+        <div id="content">
         {% block content %}
         {% endblock %}
+        </div>
+        <div id="cleardiv"/>
         <footer>
         <small> This page is &copy; copyright Jessica Ross 2012.</small>
         </footer>

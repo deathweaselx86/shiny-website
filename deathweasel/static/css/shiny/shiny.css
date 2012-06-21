@@ -1,5 +1,5 @@
 body   {
-        padding: 10px 10px 10px 25px;
+        padding: 10px 10px 50px 10px;
         background-color: white;
         border: 1px solid black;
         }
@@ -10,14 +10,29 @@ aside, details, figcaption, figure, footer, header, hgroup, nav, section {
         display: block; 
     }
 
+aside {
+    float: right;
+    width: 20%;
+}
+
+div#content {
+    width: 80%;
+}
+
 div#container {
-    width: 900px;
+    width: 95%;
+    padding: 15px;
     background-color: #DDDDDA;
     border: 1px solid black;
-    }
+    margin:auto;
+}
 
-figure {
-    padding: 25px;
+header #main {
+        /*margin:10px 0px 10px 0px; */
+    }
+h1 {
+    margin:0px;
+    font: 100px Arial,sans-serif;
     }
 
 nav {
@@ -25,31 +40,35 @@ nav {
         border: 1px solid black;
         padding-left: 10px;
         margin: 0px 10px 25px 10px;
-        width: 870px;
 }
 article {
         background-color: #99999A;
         margin: 0px 10px 25px 10px;
         border: 1px solid black;
-        width: 880px; 
     }
 
 section {
-    padding: 0px;
-    width: 880px;
+    background-color: #EEEEEA;
+    padding: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    width: 95%;
 }
 
 figure {
+    background-color: #000000;
     padding: 10px;
     border: 1px solid black;
     float: left;
-    clear: both;
 }
 
 figure + br {
     clear: both;
 }
-    /* div#container > header {
-        color: white;
-        background-color: black;
-        } */
+
+.cleardiv
+{
+    clear:both;
+}

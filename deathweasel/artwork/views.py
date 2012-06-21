@@ -17,8 +17,7 @@ class ArtListView(ListView):
     model = ArtworkModel
     paginate_by=10
 
-    def dispatch(self, *args, **kwargs):
-        return super(ArtListView, self).dispatch(*args,**kwargs) 
-    
 class ArtModelView(DetailView):
-    pass
+    template_name = 'artwork/artworkmodel_detail.html'
+    model = ArtworkModel
+    

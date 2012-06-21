@@ -1,0 +1,22 @@
+{% extends "generic_base.html" %}
+{% block title %} 
+    deathweasel.net: {{object.title}}
+{% endblock %}
+{% block content%}
+<article>
+<section>
+    <header>
+    <h2>Detailed view for {{object.title}}</h2>
+    </header>
+    <figure>
+        <img src="/media/{{object.image}}"/>
+    </figure>
+    <section>
+    Medium: {{object.medium}}<br/>
+    Artist: {{object.artists}}<br/>
+    Description: {{object.desc}}<br/>
+    </section>
+</section>
+</article>
+{% endblock %}
+

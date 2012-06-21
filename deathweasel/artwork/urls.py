@@ -12,6 +12,6 @@ urlpatterns = patterns('artwork.views',
     url(r'^$', ArtListView.as_view(model=ArtworkModel)), 
     # This leads to the page that shows a particular piece of artwork and
     # comments associated with it.
-    url(r'^<title>\d+/', ArtModelView.as_view(model=ArtworkModel), 
+    url(r'^(?P<pk>\d+)/$', ArtModelView.as_view(model=ArtworkModel), 
 ))
     
