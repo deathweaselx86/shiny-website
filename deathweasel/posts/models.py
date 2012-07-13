@@ -3,18 +3,19 @@
 # vim: fileencoding=utf-8 tabstop=4 expandtab shiftwidth=4
 
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
 class PostModel(models.Model):
     title = models.CharField(max_length=250, help_text="Maximum size is 250 characters.")
-    user = models.ForeignKey('User')
+    user = models.ForeignKey(User)
     date = models.DateTimeField(auto_now=True)
     slug = models.SlugField(unique_for_date='date')
     body = models.TextField(blank=False, help_text="Your post goes here.")
     allow_comments = models.BooleanField(default=False)
     viewable = models.BooleanField(default=False)
-    category = models.ManyToManyField('Category')
+    category = models.ManyToManyField('CategoryModel')
 
     def __unicode__(self):
         return self.title
@@ -36,7 +37,7 @@ class CommentModel(models.Model):
     author = models.CharField(max_length=50, help_text="Maximum size is 50 characters. This should be plenty.")
     date = models.DateTimeField(auto_now=True)
     body = models.TextField(blank=False, max_length=500, help_text="Your comment goes here. Maximum length is 500 characters. Don't write a book.")
-    post = models.ForeignKey('PostModel')
+    post = models.ForeignKey(PostModel)
     
     class Meta:
         verbose_name_plural = "Comments"
