@@ -11,9 +11,11 @@ urlpatterns = patterns('artwork.views',
     # This also shows a paginated view of all artwork.
     url(r'^$', views.ArtListView.as_view(model=views.ArtworkModel)), 
     # This leads to the page that shows a particular piece of artwork and
-    # comments associated with it.
+    # comments associated with it. Well, not the comments, yet. 
     url(r'^(?P<pk>\d+)/$', views.ArtModelView.as_view(model=views.ArtworkModel)), 
-)
+    # This leads to the page that allows an artist to modify or delete their artwork.
+    url(r'^(?P<pk>\d+)/modify/$', views.modify_artwork),)
+
 
 
 urlpatterns += patterns('artwork.views',

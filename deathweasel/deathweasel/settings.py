@@ -1,6 +1,6 @@
 # Django settings for deathweasel project.
 
-DEBUG = True
+DEBUG = True 
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -128,6 +128,17 @@ INSTALLED_APPS = (
     'artwork',
     'posts'
 )
+
+CACHES = 
+    {
+        'default':
+        {   #'BACKEND': ''
+            'BACKEND':'django.core.cache.backends.memcached.MemcachedCache',
+            'LOCATION': '127.0.0.1:21201'
+            
+            }
+
+    }
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
