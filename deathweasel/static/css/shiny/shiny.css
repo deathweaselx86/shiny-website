@@ -1,7 +1,6 @@
 body   {
         padding: 10px 10px 50px 10px;
         background-color: white;
-        border: 1px solid black;
         }
 
     
@@ -23,7 +22,6 @@ div#container {
     width: 95%;
     padding: 15px;
     background-color: #DDDDDA;
-    border: 1px solid black;
     margin:auto;
 }
 
@@ -37,18 +35,15 @@ h1 {
 
 nav {
         background-color: #BBBBBA;
-        border: 1px solid black;
         padding-left: 10px;
         margin: 0px 10px 25px 10px;
 }
 article {
-        background-color: #99999A;
+        background-color: #99999A; 
         margin: 0px 10px 25px 10px;
-        border: 1px solid black;
     }
 
 section {
-    background-color: #EEEEEA;
     padding: 10px;
     margin-left: auto;
     margin-right: auto;
