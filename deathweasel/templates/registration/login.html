@@ -1,0 +1,22 @@
+{% extends "generic_base.html" %}
+{% block content %}
+{% if form.errors %} 
+<p> Your username and password didn't match. Try again.</p>
+{% endif %}
+<form method="post" action="/login/">
+    {% csrf_token %}
+    <fieldset>
+    <table>
+        <tr>
+            <td>{{ form.username.label_tag }}</td>
+                <td>{{ form.username }}</td>
+        </tr>
+        <tr>
+            <td>{{ form.password.label_tag }}</td>
+            <td>{{ form.password }}</td>
+        </tr>                                                                                                                </table>
+    </fieldset>    
+    <input type="submit" value="login" />
+    <input type="hidden" name="next" value="{{ next }}" />
+</form>
+{% endblock %}

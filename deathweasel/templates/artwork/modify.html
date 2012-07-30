@@ -1,0 +1,37 @@
+{% extends "generic_base.html" %}
+{% block title %} 
+    deathweasel.net: Modify Artwork 
+{% endblock %}
+{% block content%}
+<article>
+    <header>
+    <h2>Modify Artwork and Comments</h2>
+    </header>
+     <form action="/artwork/upload/" enctype="multipart/form-data" method="post">
+        <fieldset>
+            <section>
+                <header>
+                    Modify Artwork
+                </header>
+                {% csrf_token %}
+                {{ form.as_ul }}
+            </section>
+            <section>
+                <header>
+                View/Delete Comments
+                </header>
+                {% for comment in comments %}
+                    <section id="comment.id">
+                        <header>
+                        Comment on {{ comment.date }}
+                        </header>
+                        <input type="checkbox" value="no"> {{comment.commenteer}}<br/> {{comment.comment_body}} <br/> 
+                    </section>
+                {% endfor %}
+            </section>
+        </fieldset>
+        <input type="submit" value="Submit"/>
+    </form>
+</article>
+{% endblock %}
+

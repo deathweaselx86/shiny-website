@@ -1,0 +1,21 @@
+{% extends "generic_base.html" %}
+{% block title %} 
+    deathweasel.net: Upload new artwork 
+{% endblock %}
+{% block content%}
+<article>
+    <header>
+    <h2>Upload new artwork</h2>
+    </header>
+    <section>
+        <form action="/artwork/upload/" enctype="multipart/form-data" method="post">
+            <fieldset>
+            {% csrf_token %}
+            {{ form.as_ul }}
+            <input type="submit" value="Submit"/>
+            </fieldset>
+        </form>
+    </section>
+</article>
+{% endblock %}
+
