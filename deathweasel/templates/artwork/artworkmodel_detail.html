@@ -8,14 +8,41 @@
     <header>
     <h2>Detailed view for {{object.title}}</h2>
     </header>
-    <figure>
+    <div>
+        <figure>
         <img src="/media/{{object.image}}"/>
-    </figure>
+        </figure>
+        <div id="cleardiv">
+            &nbsp;
+        </div>
+    </div>
     <section>
-    Medium: {{object.medium}}<br/>
-    Artist: {{object.artists}}<br/>
-    Description: {{object.desc}}<br/>
+    <label>Medium:</label>{{object.medium}}<br/>
+    <label>Artist:</label>{{object.artists}}<br/>
+    <label>Description:</label>{{object.desc}}<br/>
     </section>
+    <section>
+        <header>
+        <h3> Comments </h3>
+        <header>
+        {% if comments %}
+            {% for comment in comments %}
+            <section class="comment">
+                <header>
+                Comment on {{comment.date}} left by {{comment.commenteer}}
+                </header>
+                <div class="commentbody">
+                    {{comment.commentbody}}<br/>
+                </div>
+            <section>
+            {% endfor %}
+        {% else %}
+            <section class="comment">
+                <div class="commentbody">
+                    No comments available.
+                </div>
+            </section>
+        {% endif %}
 </section>
 </article>
 {% endblock %}

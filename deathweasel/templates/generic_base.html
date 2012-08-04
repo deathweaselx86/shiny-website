@@ -5,8 +5,8 @@
         <!--[if IE] > 
         <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script> 
         <![endif]-->
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
-        <script src="javascript" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
+        <script type="javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+        <script type="javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
         <link rel="stylesheet" href="http://www.deathweasel.net/static/css/shiny/shiny.css">
         <title> {% block title %}{% endblock %} </title>
 	</head>
@@ -14,22 +14,18 @@
         <header id="main">
     <h1>deathweasel.net</h1>
     </header>
+    <!-- <nav>
+    <a href="/artwork/">Artwork</a> | <a href="/login/">Login</a> | <a href="/logout/">Logout</a><br/>
+    </nav> -->
     <div id="container">
+        <p/>
         <aside>
-        <nav>
         Links
-        <ul>
-            <li><a class="hidden" href="http://deathweaselx86.deviantart.com">deathweaselx86 deviantArt gallery</a></li>
-            <li><a class="hidden" href="http://www.arduino.cc">Arduino Open Source Hardware site </a></li>
-            <li><a class="hidden" href="http://www.avrfreaks.net">AVR Freaks</a></li>
-            <li><a class="hidden" href="http://www.atxhackerspace.org">ATX Hackerspace</a></li>
-        </ul>
-        <br/>
-        Hosted Artwork
-        <ul>
-            <li><a class="hidden" href="http://www.deathweasel.net/artwork/">List of all artwork</a>
-        </ul>
-        </nav>
+        <p/>
+        <a class="hidden" href="http://deathweaselx86.deviantart.com">deathweaselx86 deviantArt gallery</a><br/>
+        <a class="hidden" href="http://www.arduino.cc">Arduino Open Source Hardware site </a><br/>
+        <a class="hidden" href="http://www.avrfreaks.net">AVR Freaks</a><br/>
+        <a class="hidden" href="http://www.atxhackerspace.org">ATX Hackerspace</a><br/>
         </aside>
         <div id="content">
         {% block content %}
@@ -38,6 +34,9 @@
         <div id="cleardiv">
         &nbsp;
         </div>
+        <div id="enddiv">
+        &nbsp;
+    </div>
         <footer>
         <small> This page is &copy; copyright Jessica Ross 2012.</small>
         </footer>

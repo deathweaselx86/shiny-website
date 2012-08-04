@@ -98,7 +98,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     # Uncomment the next line for simple clickjacking protection:
-    # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
 ROOT_URLCONF = 'deathweasel.urls'
@@ -129,10 +129,10 @@ INSTALLED_APPS = (
     'posts'
 )
 
-CACHES = 
+CACHES = \
     {
         'default':
-        {   #'BACKEND': ''
+        {   
             'BACKEND':'django.core.cache.backends.memcached.MemcachedCache',
             'LOCATION': '127.0.0.1:21201'
             
@@ -168,3 +168,11 @@ LOGGING = {
         },
     }
 }
+
+# Login variable information 
+LOGIN_REDIRECT_URL='/'
+LOGIN_URL='/login/'
+
+# Session information
+SESSION_ENGINE = ( 'django.contrib.sessions.backends.cache')
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True

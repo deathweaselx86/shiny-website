@@ -11,7 +11,7 @@
         <form action="/artwork/upload/" enctype="multipart/form-data" method="post">
             <fieldset>
             {% csrf_token %}
-            {{ form.as_ul }}
+            {{ form.as_p }}
             <input type="submit" value="Submit"/>
             </fieldset>
         </form>

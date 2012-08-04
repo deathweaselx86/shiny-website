@@ -14,9 +14,7 @@ urlpatterns = patterns('artwork.views',
     # comments associated with it. Well, not the comments, yet. 
     url(r'^(?P<pk>\d+)/$', views.ArtModelView.as_view(model=views.ArtworkModel)), 
     # This leads to the page that allows an artist to modify or delete their artwork.
-    url(r'^(?P<pk>\d+)/modify/$', views.modify_artwork),)
+    url(r'^(?P<pk>\d+)/modify/$', views.modify_artwork),
+    url(r'upload','upload_artwork'),)
 
 
-
-urlpatterns += patterns('artwork.views',
-   (r'upload/$', 'upload_artwork'),)

@@ -3,6 +3,13 @@
     deathweasel.net: Modify Artwork 
 {% endblock %}
 {% block content%}
+{% if form.errors %}
+    <div class="error">
+        {% for error in form.errors %}
+            {{error}}<br/>
+        {% endfor %}
+    </div>
+{% endif %}
 <article>
     <header>
     <h2>Modify Artwork and Comments</h2>
@@ -11,23 +18,38 @@
         <fieldset>
             <section>
                 <header>
-                    Modify Artwork
+                 <h3> Modify Artwork </h3>
                 </header>
                 {% csrf_token %}
-                {{ form.as_ul }}
+                {{ form.as_p }}
             </section>
+        </fieldset>
+        <p/>
+        <fieldset>
             <section>
                 <header>
-                View/Delete Comments
+                <h3> View/Delete Comments </h3>
                 </header>
-                {% for comment in comments %}
-                    <section id="comment.id">
-                        <header>
-                        Comment on {{ comment.date }}
-                        </header>
-                        <input type="checkbox" value="no"> {{comment.commenteer}}<br/> {{comment.comment_body}} <br/> 
+                {% if comments %}
+                    {% for comment in comments %}
+                        <section class="comment">
+                            <header>
+                            Comment on {{ comment.date }} left by {{comment.commenteer}} 
+                            </header>
+                            Delete this comment? <input type="checkbox" value="no" name={{comment.id}}><br/>
+                            <div class="commentbody">
+                                {{comment.comment_body}} <br/> 
+                            </div>        
+                        </section>
+                    {% endfor %}
+                    
+                {% else %}
+                    <section class="comment">
+                    <div class="commentbody">
+                        No comments available.
+                    </div>
                     </section>
-                {% endfor %}
+                {% endif %}
             </section>
         </fieldset>
         <input type="submit" value="Submit"/>

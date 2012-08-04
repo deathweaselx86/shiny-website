@@ -17,7 +17,30 @@ def getFilePath(instance, filename):
     hash_string = str(hash_string).replace('-','')
     return 'images/%s/%s.%s' % (str(instance.medium), hash_string, file_extension)
 
-	
+def shrinkImage(image):
+    from PIL import Image
+
+    pil_image = Image.open(image.file)
+    
+    # Here's our current height and width.
+    current_width, current_height = pil_image.size
+    
+    if current_width > 800:
+        # Resize due to width.
+        new_width = 800
+        new_height = int(current_height*((1.0*new_width)/current_width))
+    elif current_height > 1200:
+        # Resize due to height.
+        new_height = 1200
+        new_width = int(current_width*((new_height*1.0)/current_height))
+    else:
+        # Otherwise the sizing is good.
+        return
+
+    pil_image.resize((new_width, new_height), Image.ANTIALIAS)
+    image.open()
+    pil_image.save(image.file)
+
 class ArtworkModel(models.Model):
     """
         This class contains the information necessary to describe a piece of

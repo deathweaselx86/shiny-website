@@ -3,8 +3,8 @@
 # vim: fileencoding=utf-8 tabstop=4 expandtab shiftwidth=4
 # Create your views here.
 
-from artwork.models import ArtworkModel
-from forms import ArtworkForm, CommentForm
+from artwork.models import ArtworkModel, CommentModel, shrinkImage
+from forms import ArtworkForm
 
 from django.http import HttpResponse, HttpResponseRedirect
 
@@ -13,9 +13,12 @@ from django.views.generic import DetailView, TemplateView
 from django.views.decorators.csrf import csrf_protect
 
 from django.shortcuts import render_to_response 
+
 from django.db import models
+
 from django.template import RequestContext
 
+from django.contrib.auth.decorators import login_required
 
 from dajax.core import Dajax
 from dajaxice.decorators import dajaxice_register
@@ -28,12 +31,22 @@ class ArtListView(ListView):
     model = ArtworkModel
     paginate_by=10
 
+    def get_context_data(self, **kwargs):
+        context = super(ListView,self).get_context_data(**kwargs)
+        context['comments'] = CommentModel.objects.all()
+        return context
+
 class ArtModelView(DetailView):
     template_name = 'artwork/artworkmodel_detail.html'
     model = ArtworkModel
 
+    def get_context_data(self, **kwargs):
+        context = super(DetailView, self).get_context_data(**kwargs)
+        context['comments'] = CommentModel.objects.filter(artwork=kwargs['object'].id)
+        return context
+
 """
-    This class contains view methods that have something to do with artwork management.
+    The next few methods  have something to do with artwork management.
 
     To manage my artwork successfully, I need:
         - to authenticate, which we can manage with some auth code built into Django
@@ -44,6 +57,7 @@ class ArtModelView(DetailView):
 
 """
 @csrf_protect
+@login_required
 def upload_artwork(request):
     """
         This view gives you a means of uploading a new piece of artwork.
@@ -54,7 +68,7 @@ def upload_artwork(request):
         # We should display the form associated with this page.
         form = ArtworkForm()
         return render_to_response("artwork/upload.html", 
-                                 {"form":form,},
+                                 {"form":form},
                                  context_instance=RequestContext(request))
     
     elif request.method == 'POST':
@@ -62,9 +76,16 @@ def upload_artwork(request):
         # Validate in Javascript.
         form = ArtworkForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
-            return HttpResponseRedirect("/artwork/")
-
+            my_model = form.save()
+            # I can't count on this image being where I need it to be
+            # until I upload it so I have to save it before shrinking it.
+            shrinkImage(my_model.image)
+            return HttpResponseRedirect("/artwork/%s/" % (my_model.id,))
+        else:
+            return render_to_response("artwork/upload.html",
+                                      {"form":form,
+                                       "errors": errors},
+                                      context_instance=RequestContext(request))
 def compact_view_artwork(request):
     """
         This view shows you all of your artwork, paginated, in a compact manner.
@@ -75,6 +96,7 @@ def compact_view_artwork(request):
     pass
 
 @csrf_protect
+@login_required
 def modify_artwork(request, **kwargs):
     """
         This view allows you to modify the attributes associated with a piece of artwork.
@@ -83,22 +105,29 @@ def modify_artwork(request, **kwargs):
         You can also view/delete comments associated with this image.
 
     """
+    artworkModelType = type(ArtworkModel)
     pk = kwargs["pk"]
     # pk is the primary key of the art model we want to change
     if request.method == 'GET':
         # If this is a GET request, we should prepopulate a form with the artwork information.
         # Let's go ahead and reuse the ArtModelForm.
-        my_model = ArtworkModel(id=pk).objects[0]
-        form = ArtworkForm(instance=my_model)
+        my_art = ArtworkModel.objects.get(id=pk)
+        comments = CommentModel.objects.filter(artwork=pk)
+        artForm = ArtworkForm(instance=my_art)
         return render_to_response("artwork/modify.html",
-                                 {"form":form,},
+                                 {"form":artForm,
+                                  "comments": comments},
                                  context_instance=RequestContext(request))
     else:
         # If this is a POST request, we should take the form data handed to us with the
         # changed form information and resave it. 
-        form = ArtworkForm(request.POST, request.FILES)
+        
+        # This is real wrong as written right now. Please fix it.
+        artForm = ArtworkForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            # If user deleted comments, detect this and delete them.
+            # Then save any modifications made to the 
+            artForm.save()
         return HttpResponseRedirect("/artwork/%(pk)s/modify/" % locals())
 
 

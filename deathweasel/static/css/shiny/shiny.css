@@ -9,11 +9,6 @@ aside, details, figcaption, figure, footer, header, hgroup, nav, section {
         display: block; 
     }
 
-aside {
-    float: right;
-    width: 30%;
-}
-
 div#content {
     width: 70%;
 }
@@ -25,8 +20,9 @@ div#container {
     margin:auto;
 }
 
-header #main {
-        margin:10px 0px 10px 0px; 
+div.commentbody {
+        width: 90%;
+        align: right;
     }
 h1 {
     margin:0px;
@@ -34,8 +30,15 @@ h1 {
     }
 
 nav {
+     padding-left: 10px;
+     margin: 0px 10px 25px 10px;
+    }
+
+aside {
+        float: right;
+        width: 28%;
         background-color: #9D8DB5;
-        padding-left: 10px;
+        padding-left: 0px;
         margin: 0px 10px 25px 10px;
 }
 article {
@@ -45,11 +48,26 @@ article {
 
 section {
     padding: 10px;
-    margin-left: auto;
     margin-right: auto;
     margin-top: 25px;
     margin-bottom: 25px;
     width: 95%;
+}
+
+section.artinfo {
+         background-color: #9D8DB5;
+}
+section.comment{
+    background-color: #C4BBD0;
+}
+
+section.comment>header{
+    font-weight: bold;
+}
+
+label {
+    vertical-align: top;
+    font-weight: bold;
 }
 
 figure {
@@ -64,7 +82,7 @@ figure + br {
 
 .enddiv
 {
-    height: 200px;
+    height: 900px;
 }
 .cleardiv
 {

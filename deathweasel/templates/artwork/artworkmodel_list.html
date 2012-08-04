@@ -7,20 +7,19 @@
     {% for artwork in object_list %}
         <section>
             <header>
-            <h3>{{artwork.title}}</h3>
+            <h2>{{artwork.title}}</h2>
             </header>
             <figure>
-                <img src="/media/{{ artwork.image }}"/>
+                <img width=600 src="/media/{{ artwork.image }}"/>
             </figure>
             <br/>
-            <section>
+            <section class="artinfo">
             <header>
-                <h4>Artwork Information</h4>
+                <h3>Artwork Information</h3>
             </header>
-            Medium: {{artwork.medium}}<br/>
-            Artist: {{artwork.artist}}<br/>
-            Description: <br/>
-            {{artwork.desc}}<br/>
+            <label>Medium:</label> {{artwork.medium}}<br/>
+            <label>Artist:</label> {{artwork.artist}}<br/>
+            <label>Description:</label> {{artwork.desc}}<p/>
             </section>
         </section>    
     {% endfor %}
