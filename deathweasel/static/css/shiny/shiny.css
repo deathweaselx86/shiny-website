@@ -15,7 +15,7 @@ div#content {
 
 div#container {
     width: 95%;
-    padding: 15px;
+    padding: 15px 15px 30px 15px;
     background-color: #C4BBD0;
     margin:auto;
 }
@@ -39,7 +39,7 @@ aside {
         width: 28%;
         background-color: #9D8DB5;
         padding-left: 0px;
-        margin: 0px 10px 25px 10px;
+        margin: 0px 10px 25px 10px; 
 }
 article {
         background-color: #7F629C; 
@@ -80,10 +80,6 @@ figure + br {
     clear: both;
 }
 
-.enddiv
-{
-    height: 900px;
-}
 .cleardiv
 {
     clear:both;

@@ -7,6 +7,7 @@
         <![endif]-->
         <script type="javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
         <script type="javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
+        <script type="javascript" src="http://www.deathweasel.net/static/js/shiny.js"></script>
         <link rel="stylesheet" href="http://www.deathweasel.net/static/css/shiny/shiny.css">
         <title> {% block title %}{% endblock %} </title>
 	</head>
@@ -14,29 +15,40 @@
         <header id="main">
     <h1>deathweasel.net</h1>
     </header>
-    <!-- <nav>
-    <a href="/artwork/">Artwork</a> | <a href="/login/">Login</a> | <a href="/logout/">Logout</a><br/>
-    </nav> -->
-    <div id="container">
-        <p/>
+        <div id="container">
+        <nav>
+        <div align="right"><a href="/artwork/">Artwork</a> | 
+            {% if user.is_authenticated %}
+            Login | <a href="/logout/">Logout</a><br/></div>
+            {% else %}
+            <a href="/login/">Login</a> | Logout<br/></div>
+            {% endif %}
+        </nav>
         <aside>
-        Links
-        <p/>
-        <a class="hidden" href="http://deathweaselx86.deviantart.com">deathweaselx86 deviantArt gallery</a><br/>
-        <a class="hidden" href="http://www.arduino.cc">Arduino Open Source Hardware site </a><br/>
-        <a class="hidden" href="http://www.avrfreaks.net">AVR Freaks</a><br/>
-        <a class="hidden" href="http://www.atxhackerspace.org">ATX Hackerspace</a><br/>
+        <b> Art Links</b>
+        <div class="links">
+            <a class="arthidden" href="http://www.deviantart.com">deviantArt gallery</a><br/>
+            <a class="arthidden" href="http://wwww.conceptart.org">Conceptart.org</a><br/>
+            <a class="arthidden" href="http://www.wetcanvas.com">Wetcanvas artist resources<a><br/>
+        </div>
+        <b>Tech Links</b>
+        <div class="links">
+            <a class="techhidden" href="http://www.arduino.cc">Arduino Open Source Hardware site </a><br/>
+            <a class="techhidden" href="http://www.avrfreaks.net">AVR Freaks</a><br/>
+            <a class="techhidden" href="http://www.atxhackerspace.org">ATX Hackerspace</a><br/>
+            <a class="techhidden" href="http://www.adafruit.com">Adafruit Industries: Electronics for Hackers and Makers</a><br/>
+        </div>
         </aside>
-        <div id="content">
+                <div id="content">
         {% block content %}
         {% endblock %}
         </div>
         <div id="cleardiv">
         &nbsp;
         </div>
-        <div id="enddiv">
+        <div id="cleardiv">
         &nbsp;
-    </div>
+        </div>
         <footer>
         <small> This page is &copy; copyright Jessica Ross 2012.</small>
         </footer>
