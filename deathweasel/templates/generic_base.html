@@ -15,7 +15,14 @@
         <header id="main">
     <h1>deathweasel.net</h1>
     </header>
-        <div id="container">
+    <div id="container">
+        {% if errors %}
+            <div id="errors">
+                {% for error in errors %}
+                    {{error }}
+                {% endfor %}
+            </div>
+        {% endif %}
         <nav>
         <div align="right"><a href="/artwork/">Artwork</a> | 
             {% if user.is_authenticated %}

@@ -2,6 +2,7 @@
 # -*- coding: utf-8; mode: python; py-indent-offset: 4; indent-tabs-mode: nil -*-
 # vim: fileencoding=utf-8 tabstop=4 expandtab shiftwidth=4
 from django.db import models
+from django.conf import settings
 
 # Create your models here.
 def getFilePath(instance, filename):
@@ -17,36 +18,48 @@ def getFilePath(instance, filename):
     hash_string = str(hash_string).replace('-','')
     return 'images/%s/%s.%s' % (str(instance.medium), hash_string, file_extension)
 
-def shrinkImage(image):
+def shrinkImage(artmodel):
     """
-        This is supposed to shrink uploaded images so we can avoid having huge images, but
-        it doesn't work right now. Fix later.
-    """
-    pass
 
+    This shrinks the initial images when you upload them so you don't just have huge images 
+    hanging out in the file system..
+    
     """
-        from PIL import Image
 
-        pil_image = Image.open(image)
-        
-        # Here's our current height and width.
-        current_width, current_height = pil_image.size
-        
-        if current_width > 800:
-            # Resize due to width.
-            new_width = 800
-            new_height = int(current_height*((1.0*new_width)/current_width))
-        elif current_height > 1200:
-            # Resize due to height.
-            new_height = 1200
-            new_width = int(current_width*((new_height*1.0)/current_height))
-        else:
-            # Otherwise the sizing is good.
-            return
+    # This can be written more efficiently. Please look into it.
 
-        pil_image.resize((new_width, new_height), Image.ANTIALIAS)
-        pil_image.save(image.file)
-    """
+    from PIL import Image
+    import tempfile
+    from django.core.files.images import ImageFile
+    from django.core.files.storage import default_storage
+
+    image = artmodel.image
+    pil_image = Image.open(image)
+    
+    # Here's our current height and width.
+    current_width, current_height = pil_image.size
+    
+    if current_width > 800:
+        # Resize due to width.
+        new_width = 800
+        new_height = int(current_height*((1.0*new_width)/current_width))
+    elif current_height > 1200:
+        # Resize due to height.
+        new_height = 1200
+        new_width = int(current_width*((new_height*1.0)/current_height))
+    else:
+        # Otherwise the sizing is good.
+        return
+    pil_image = pil_image.resize((new_width, new_height), Image.ANTIALIAS)
+
+    # Delete the image associated with the ImageField. Don't worry, we
+    # will replace it shortly.
+    filename = settings.MEDIA_ROOT + image.name
+
+    # Create new image and save the resized image to it.
+    with tempfile.NamedTemporaryFile() as tempfile:
+        pil_image.save(tempfile, 'JPEG', quality=90)
+        artmodel.image.save(filename, ImageFile(tempfile), save=True)
 
 class ArtworkModel(models.Model):
     """

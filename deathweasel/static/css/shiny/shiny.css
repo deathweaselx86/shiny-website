@@ -84,3 +84,7 @@ figure + br {
 {
     clear:both;
 }
+
+img.artimage {
+    width: 600px;
+}

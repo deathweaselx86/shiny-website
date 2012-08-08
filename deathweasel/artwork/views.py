@@ -20,8 +20,19 @@ from django.template import RequestContext
 
 from django.contrib.auth.decorators import login_required
 
-from dajax.core import Dajax
-from dajaxice.decorators import dajaxice_register
+#from dajax.core import Dajax
+#from dajaxice.decorators import dajaxice_register
+
+# utility method
+"""
+def create_error_mesage(error_dict):
+    problems = list(set(error_dict.values))
+    problem_dict = {}
+    [problem_dict.setdefault(k, None) for k in problems]
+    for k,v in error_dict.iteritems():
+        if 
+
+"""
 
 class IndexView(TemplateView):
     template_name = "frontpage.html"
@@ -61,7 +72,7 @@ class ArtModelView(DetailView):
 def upload_artwork(request):
     """
         This view gives you a means of uploading a new piece of artwork.
-        It will automatically make thumbnails when it saves the model.
+        It'll even shrink your new piece of artwork if necessary.
     """
     if request.method == 'GET':
         # Then we're coming to the page for the first time.
@@ -79,12 +90,11 @@ def upload_artwork(request):
             my_model = form.save()
             # I can't count on this image being where I need it to be
             # until I upload it so I have to save it before shrinking it.
-            shrinkImage(my_model.image)
+            shrinkImage(my_model)
             return HttpResponseRedirect("/artwork/%s/" % (my_model.id,))
         else:
             return render_to_response("artwork/upload.html",
-                                      {"form":form,
-                                       "errors": errors},
+                                      {"form":form},
                                       context_instance=RequestContext(request))
 def compact_view_artwork(request):
     """
@@ -119,8 +129,8 @@ def modify_artwork(request, **kwargs):
                                   "comments": comments},
                                  context_instance=RequestContext(request))
     else:
-        # If this is a POST request, we should take the form data handed to us with the
-        # changed form information and resave it. 
+        # If this is a POST request, we should take the form data handed to us
+        #with the changed form information and resave it. 
         
         # This is real wrong as written right now. Please fix it.
         artForm = ArtworkForm(request.POST, request.FILES)
@@ -128,6 +138,11 @@ def modify_artwork(request, **kwargs):
             # If user deleted comments, detect this and delete them.
             # Then save any modifications made to the 
             artForm.save()
-        return HttpResponseRedirect("/artwork/%(pk)s/modify/" % locals())
-
+            return HttpResponseRedirect("/artwork/%(pk)s/modify/" % locals())
+        else:
+            return render_to_response("/artwork/modify.html",
+                                      {"form": artForm,
+                                       "errors": [v[0] for v in artForm.errors.values()],
+                                       "comments": comments},
+                                      context_instance=RequestContext(request))
 
