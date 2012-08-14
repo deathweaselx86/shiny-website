@@ -1,0 +1,36 @@
+{% extends "generic_base.html" %}
+{% block title %} 
+All Posts
+{% endblock %}
+{% block content%}
+<article>
+{% for object in object_list %}
+    <section>
+        <header>
+        <h2>{{object.title}}</h2>
+        </header>
+        <section>
+        {% autoescape on %}
+        {{object.body}}
+        {% endautoescape %}
+        <label>Posted by: </label>{{object.user}}<br/>
+        <label>Date:</label>{{object.date}}<br/>
+        <label>Categories</label>: 
+            {% for cat in object.category.all %}
+            {{cat}} &nbsp;
+            {% endfor %}
+        </section>
+    </section>
+
+{% empty %}    
+<section>
+    <header>
+        <h2>No posts available</h2>
+    </header>
+    No posts. :( Come back later.
+</section>
+{% endfor %}
+
+</article>
+{% endblock %}
+
