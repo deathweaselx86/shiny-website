@@ -8,7 +8,7 @@ from django.forms import ModelForm
 class ArtworkForm(ModelForm):
     class Meta:
         model=ArtworkModel
-        exclude = ('upload_date','artist')
+        exclude = ('upload_date',)
 
 class CommentForm(ModelForm):
     class Meta:

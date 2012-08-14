@@ -1,49 +1,31 @@
 {% extends "generic_base.html" %}
-{% block title %} 
-    deathweasel.net: {{object.title}}
-{% endblock %}
 {% block content%}
 <article>
-<section>
-    <header>
-    <h2>Detailed view for {{object.title}}</h2>
-    </header>
-    <div>
-        <figure>
-        <img class="artimage" src="/media/{{object.image}}"/>
-        </figure>
-        <div id="cleardiv">
-            &nbsp;
+    <section>
+        <header>
+            <h2>Detailed view for {{object.title}}</h2>
+        </header>
+        <div>
+            <figure>
+                <img class="artimage" src="{{object.image.url}}"/>
+            </figure>
+            <div id="cleardiv">
+                &nbsp;
+            </div>
         </div>
-    </div>
-    <section>
-    <label>Medium:</label>{{object.medium}}<br/>
-    <label>Artist:</label>{{object.artists}}<br/>
-    <label>Description:</label>{{object.desc}}<br/>
+        <section>
+            <label>Medium:</label>{{object.medium}}<br/>
+            <label>Artist:</label>{{object.artists}}<br/>
+            <label>Description:</label>{{object.desc}}<br/>
+        </section>
+        <section>
+            <header>
+            <h3> Comments </h3>
+            </header>
+            <a class="commentlink" href="#">Show comments...</a>
+            <div id="{{object.id}}"/>
+        </section>
     </section>
-    <section>
-        <header>
-        <h3> Comments </h3>
-        <header>
-        {% if comments %}
-            {% for comment in comments %}
-            <section class="comment">
-                <header>
-                Comment on {{comment.date}} left by {{comment.commenteer}}
-                </header>
-                <div class="commentbody">
-                    {{comment.commentbody}}<br/>
-                </div>
-            <section>
-            {% endfor %}
-        {% else %}
-            <section class="comment">
-                <div class="commentbody">
-                    No comments available.
-                </div>
-            </section>
-        {% endif %}
-</section>
 </article>
 {% endblock %}
 

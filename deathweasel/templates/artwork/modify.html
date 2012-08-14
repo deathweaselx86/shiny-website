@@ -1,7 +1,4 @@
 {% extends "generic_base.html" %}
-{% block title %} 
-    deathweasel.net: Modify Artwork 
-{% endblock %}
 {% block content%}
 {% if form.errors %}
     <div class="error">
@@ -22,6 +19,7 @@
                 </header>
                 {% csrf_token %}
                 {{ form.as_p }}
+                <p/>Delete this artwork? <input type="checkbox" value="no" name="deleteImage"/><br/>
             </section>
         </fieldset>
         <p/>
@@ -36,7 +34,7 @@
                             <header>
                             Comment on {{ comment.date }} left by {{comment.commenteer}} 
                             </header>
-                            Delete this comment? <input type="checkbox" value="no" name={{comment.id}}><br/>
+                            Delete this comment? <input type="checkbox" value="no" name={{comment.id}}/><br/>
                             <div class="commentbody">
                                 {{comment.comment_body}} <br/> 
                             </div>        

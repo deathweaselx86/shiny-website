@@ -126,7 +126,7 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'sorl.thumbnail',
     'artwork',
-    'posts'
+    'posts',
 )
 
 CACHES = \

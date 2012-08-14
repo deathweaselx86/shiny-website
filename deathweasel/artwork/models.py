@@ -3,6 +3,7 @@
 # vim: fileencoding=utf-8 tabstop=4 expandtab shiftwidth=4
 from django.db import models
 from django.conf import settings
+from django.contrib.auth.models import User
 
 # Create your models here.
 def getFilePath(instance, filename):
@@ -11,10 +12,11 @@ def getFilePath(instance, filename):
         a string formed of the upload_date, artist, and filename.
         We then return a string representing the url that the file goes to.
     """
-    file_extension = filename.split('.')[1]
+    import time
 
-    hash_string = hash(''.join((str(instance.title), str(instance.artist),\
-        filename)))
+    file_extension = filename.split('.')[1]
+    
+    hash_string = hash(''.join((str(instance.title), time.ctime(), filename)))
     hash_string = str(hash_string).replace('-','')
     return 'images/%s/%s.%s' % (str(instance.medium), hash_string, file_extension)
 
@@ -80,6 +82,8 @@ class ArtworkModel(models.Model):
     title = models.CharField(max_length=200)
     medium = models.CharField(max_length=200, choices=MEDIUMS, default='graphite')
     upload_date = models.DateTimeField(auto_now_add=True)
+    # I would have prefered to have this correspond with the user uploading
+    # but it's too much trouble for now.
     artist = models.CharField(max_length=200)
     image = models.ImageField(upload_to=getFilePath)
     desc = models.TextField(verbose_name="Description", max_length=500)
@@ -95,6 +99,7 @@ class CommentModel(models.Model):
         This class contains the information necessary to describe a comment
         that someone's left about a piece of artwork. 
     """
+    # There is an implicit id field here
     commenteer = models.CharField(max_length=200, blank=False)
     comment_body = models.TextField(blank=False)
     artwork = models.ForeignKey(ArtworkModel)
