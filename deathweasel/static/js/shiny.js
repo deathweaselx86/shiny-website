@@ -1,12 +1,19 @@
-$(document).ready(function(){
-    alert("Test");
-});
-
 $(document).ready(function() {
-    $('.commentlink a').bind('click', function(id) {
-            var link = "posts/comments/" + id;
-            $('#this.id div').load(link);
-            alert("Load comments for post " + id );
-            return false;
-        });
+    $('a.commentlink').click(
+        function() {
+         var id = $(this).attr('id');
+         var link = "/artwork/comments/" + id;
+         var element = 'a#'+id+'+ div';
+         $(element).empty(); 
+                $.ajax({
+                    url: link,
+                 }).done(function(html){
+                     $(element).append(html);
+                        });
+                
+             }
+
+        );
     });
+
+
