@@ -120,7 +120,8 @@ def modify_artwork(request, **kwargs):
         my_art = ArtworkModel.objects.get(id=pk)
         art_form = ArtworkForm(instance=my_art)
         return render_to_response("artwork/modify.html",
-                                 {"form":art_form},
+                                 {"form":art_form,
+                                  "pk": pk},
                                  context_instance=RequestContext(request))
     else:
         # If this is a POST request, we should take the form data handed to us
@@ -142,10 +143,33 @@ def modify_artwork(request, **kwargs):
         else:
             return render_to_response("artwork/modify.html",
                                       {"form": art_form,
-                                       "comments": comments},
+                                        "pk":pk},
                                       context_instance=RequestContext(request))
 
-@login_required
+
+# The rest of this crap is primitive ajax.
+def delete_comment(request, **kwarg):
+    """
+        This method selectively deletes a comment based on the comment
+        unique id.
+    """
+    pk = kwarg["pk"]
+    comment = CommentModel.objects.get(id=pk)
+    comment.delete()
+    # Whatever. I'm not going to do anything with this output.
+    return HttpResponseRedirect("artwork/" % locals())
+
+
+def get_deletable_comments(request, **kwargs):
+    """
+        This method retrieves the comment associated with the artwork pk.
+    """
+    
+    pk = kwargs["pk"]   
+    these_comments = CommentModel.objects.filter(artwork=pk)
+    return render_to_response("artwork/comments_modify.html",
+                               {"comments": these_comments})
+
 def get_comments(request, **kwargs):
     """
         This method retrieves the comment associated with the artwork pk.

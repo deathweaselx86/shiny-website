@@ -100,8 +100,9 @@ class CommentModel(models.Model):
         that someone's left about a piece of artwork. 
     """
     # There is an implicit id field here
-    commenteer = models.CharField(max_length=200, blank=False)
-    comment_body = models.TextField(blank=False)
+    author = models.CharField(max_length=200, blank=False)
+    title = models.CharField(max_length=250)
+    body = models.TextField(blank=False)
     artwork = models.ForeignKey(ArtworkModel)
     date = models.DateTimeField(auto_now_add=True)
 
