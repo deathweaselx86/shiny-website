@@ -1,12 +1,6 @@
 {% extends "generic_base.html" %}
 {% block content%}
-{% if form.errors %}
-    <div class="error">
-        {% for error in form.errors %}
-            {{error}}<br/>
-        {% endfor %}
-    </div>
-{% endif %}
+<script type="text/javascript" src="http://www.deathweasel.net/static/js/artwork.js"></script>
 <article>
     <header>
     <h2>Modify Artwork and Comments</h2>
@@ -19,7 +13,7 @@
                 </header>
                 {% csrf_token %}
                 {{ form.as_p }}
-                <p/>Delete this artwork? <input type="checkbox" value="no" name="deleteImage"/><br/>
+                <p/>Delete this artwork? <input type="checkbox" value="no" name="deleteimage"/><br/>
             </section>
         </fieldset>
         <p/>
@@ -28,26 +22,8 @@
                 <header>
                 <h3> View/Delete Comments </h3>
                 </header>
-                {% if comments %}
-                    {% for comment in comments %}
-                        <section class="comment">
-                            <header>
-                            Comment on {{ comment.date }} left by {{comment.commenteer}} 
-                            </header>
-                            Delete this comment? <input type="checkbox" value="no" name={{comment.id}}/><br/>
-                            <div class="commentbody">
-                                {{comment.comment_body}} <br/> 
-                            </div>        
-                        </section>
-                    {% endfor %}
-                    
-                {% else %}
-                    <section class="comment">
-                    <div class="commentbody">
-                        No comments available.
-                    </div>
-                    </section>
-                {% endif %}
+                    <a class="artmodifycomment" id="{{pk}}" href="#">Show comments...</a>
+                    <div id="comment"/>
             </section>
         </fieldset>
         <input type="submit" value="Submit"/>

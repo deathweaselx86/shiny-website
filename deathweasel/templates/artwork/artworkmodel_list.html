@@ -1,5 +1,6 @@
 {% extends "generic_base.html" %}
 {% block content  %}
+<script type="text/javascript" src="http://www.deathweasel.net/static/js/artwork.js"></script>
 <article>
     {% for artwork in object_list %}
         <section>
@@ -20,24 +21,10 @@
             </section>
             <section>
                 <header>
-                <h3> Comments </h3>
+                <h3> Comments for {{artwork.title}}</h3>
                 </header>
-                {% for comment in comment_dict %}
-                    <section class="comment">
-                        <header>
-                        Comment on {{comment.date}} left by {{comment.commenteer}}
-                        </header>
-                        <div class="commentbody">
-                            {{comment.comment_body}}<br/>
-                        </div>
-                    </section>
-                {% empty %}
-                    <section class="comment">
-                        <div class="commentbody">
-                            No comments available.
-                        </div>
-                    </section>
-                {% endfor %}
+                <a class="artcomment" id="{{artwork.id}}" href="#">Show comments...</a>
+                <div id="comment"/>
             </section>
         </section>    
     {% empty %}

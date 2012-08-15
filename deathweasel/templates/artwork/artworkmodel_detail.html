@@ -1,5 +1,6 @@
 {% extends "generic_base.html" %}
 {% block content%}
+<script type="text/javascript" src="http://www.deathweasel.net/static/js/artwork.js"></script>
 <article>
     <section>
         <header>
@@ -20,10 +21,10 @@
         </section>
         <section>
             <header>
-            <h3> Comments </h3>
+            <h3>Comments for {{object.title}}</h3>
             </header>
-            <a class="commentlink" href="#">Show comments...</a>
-            <div id="{{object.id}}"/>
+            <a class="artcomment" id={{object.id}} href="#">Show comments...</a>
+            <div id="comment"/>
         </section>
     </section>
 </article>
