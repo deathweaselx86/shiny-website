@@ -23,8 +23,6 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from django.contrib.auth.models import User
-#from dajax.core import Dajax
-#from dajaxice.decorators import dajaxice_register
 
 class IndexView(TemplateView):
     template_name = "frontpage.html"
@@ -67,15 +65,13 @@ def upload_artwork(request):
     else:
         # Then we should process the form the user submitted.
         # Validate in Javascript.
-        t = request.session.keys()
-        z = request.session.items()
         form = ArtworkForm(request.POST, request.FILES)
         if form.is_valid():
             my_model = form.save()
             # I can't count on this image being where I need it to be
             # until I upload it so I have to save it before shrinking it.
             shrinkImage(my_model)
-            return HttpResponseRedirect("artwork/%s/" % (my_model.id,))
+            return HttpResponseRedirect("/artwork/%s" % (my_model.id,))
         else:
             return render_to_response("artwork/upload.html",
                                       {"form":form},
@@ -128,24 +124,16 @@ def modify_artwork(request, **kwargs):
         #with the changed form information and resave it. 
         
         art_form = ArtworkForm(request.POST, request.FILES)
-        
         if art_form.is_valid():
         # Hopefully this deletes the comments associated with the image as well.
-            delete_artwork = art_form.cleaned_data['deleteImage']
-            if delete_artwork:
+            delete_artwork = request.POST.get("delete", None) 
+            if delete_artwork and delete_artwork == "on":
                 my_art = ArtworkModel.objects.get(id=pk)
                 my_art.delete()
                 return HttpResponseRedirect("artwork/")
-        # Find a way to delete the comments in an AJAX-y manner!
-            # Then save any modifications made to the ArtModel itself. 
-            art_form.save()
-            return HttpResponseRedirect("artwork/%(pk)s/modify/" % locals())
-        else:
-            return render_to_response("artwork/modify.html",
-                                      {"form": art_form,
-                                        "pk":pk},
-                                      context_instance=RequestContext(request))
-
+            else:
+                art_form.save()
+        return HttpResponseRedirect("artwork/modify/%(pk)s" % locals())
 
 # The rest of this crap is primitive ajax.
 def delete_comment(request, **kwarg):
