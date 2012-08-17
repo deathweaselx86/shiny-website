@@ -7,57 +7,43 @@
         <![endif]-->
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
         <script type="text/javascript" src="http://www.deathweasel.net/static/js/shiny.js"></script>
-        <link rel="stylesheet" href="http://www.deathweasel.net/static/css/shiny/shiny.css"/>
+        <link rel="stylesheet" href="http://www.deathweasel.net/static/css/shiny.css"/>
         <title> deathweasel.net</title>
 	</head>
     <body>
-        <header id="main">
-    <h1>deathweasel.net</h1>
+    <header id="header">
+        <h1>deathweasel.net</h1>
     </header>
-    <div id="container">
-        {% if errors %}
-            <div id="errors">
-                {% for error in errors %}
-                    {{error }}
-                {% endfor %}
-            </div>
-        {% endif %}
-        <nav>
-        <div align="right"><a href="/artwork/">Artwork</a> | 
-            {% if user.is_authenticated %}
-            Login | <a href="/logout/">Logout</a><br/></div>
-            {% else %}
-            <a href="/login/">Login</a> | Logout<br/></div>
-            {% endif %}
-        </nav>
-        <aside>
-        <b> Art Links</b>
-        <div class="links">
-            <a class="arthidden" href="http://www.deviantart.com">deviantArt gallery</a><br/>
-            <a class="arthidden" href="http://www.conceptart.org">Conceptart.org</a><br/>
-            <a class="arthidden" href="http://www.wetcanvas.com">Wetcanvas artist resources<a><br/>
-        </div>
-        <b>Tech Links</b>
-        <div class="links">
-            <a class="techhidden" href="http://www.arduino.cc">Arduino Open Source Hardware site </a><br/>
-            <a class="techhidden" href="http://www.avrfreaks.net">AVR Freaks</a><br/>
-            <a class="techhidden" href="http://www.atxhackerspace.org">ATX Hackerspace</a><br/>
-            <a class="techhidden" href="http://www.adafruit.com">Adafruit Industries: Electronics for Hackers and Makers</a><br/>
-        </div>
+    <nav id="navbar">
+        <ul>
+            <li><a href="http://deathweasel.net">Home</a></li>
+            <li><a href="/artwork/">Artwork</a></li>
+            <li><a href="/posts/">Posts</a></li>
+            <li><a href="#">About me</a></li>
+        </ul>
+    </nav>
+    <section id="middle">
+        <aside id="sidebar">
+            <h3> Art Links</h3>
+            <ul>
+                <li> <a class="arthidden" href="http://www.deviantart.com">deviantArt gallery</a></li>
+                <li> <a class="arthidden" href="http://www.conceptart.org">Conceptart.org</a></li>
+                <li> <a class="arthidden" href="http://www.wetcanvas.com">Wetcanvas artist resources<a></li>
+                <li> <a class="techhidden" href="http://www.arduino.cc">Arduino Open Source Hardware site </li>
+                <li> <a class="techhidden" href="http://www.avrfreaks.net">AVR Freaks</a></li>
+                <li> <a class="techhidden" href="http://www.atxhackerspace.org">ATX Hackerspace</a></li>
+                <li> <a class="techhidden" href="http://www.adafruit.com">Adafruit Industries: Electronics for Hackers and Makers</a></li>
+            </ul>        
+        <div class="clear"/>
         </aside>
-                <div id="content">
-        {% block content %}
-        {% endblock %}
-        </div>
-        <div id="cleardiv">
-        &nbsp;
-        </div>
-        <div id="cleardiv">
-        &nbsp;
-        </div>
-        <footer>
+
+        <article id="main">
+            {% block content %}
+            {% endblock %}
+        </article>
+        <footer id="footer">
         <small> This page is &copy; copyright Jessica Ross 2012.</small>
         </footer>
-        </div>
+    </section>
     </body>
 </html>

@@ -1,40 +1,39 @@
 {% extends "generic_base.html" %}
 {% block content  %}
 <script type="text/javascript" src="http://www.deathweasel.net/static/js/artwork.js"></script>
-<article>
     {% for artwork in object_list %}
-        <section>
+        <section class="art">
             <header>
-            <h2>{{artwork.title}}</h2>
-            </header>
+                <h2>{{artwork.title}}</h2>
+            </header>    
+            <p/>
             <figure>
                 <img class="artimage" src="{{ artwork.image.url }}"/>
             </figure>
             <br/>
-            <section class="artinfo">
-            <header>
+            <div class="artinfo">
                 <h3>Artwork Information</h3>
-            </header>
-            <label>Medium:</label> {{artwork.medium}}<br/>
-            <label>Artist:</label> {{artwork.artist}}<br/>
-            <label>Description:</label> {{artwork.desc}}<p/>
-            </section>
-            <section>
-                <header>
+                <label>Medium:</label> {{artwork.medium}}<br/>
+                <label>Artist:</label> {{artwork.artist}}<br/>
+                <label>Description:</label> {{artwork.desc}}<p/>
+            </div>
+            <div>
                 <h3> Comments for {{artwork.title}}</h3>
-                </header>
-                <a class="artcomment" id="{{artwork.id}}" href="#">Show comments...</a>
-                <div id="comment"/>
-            </section>
-        </section>    
+                <p/>
+                <a class="artcomment" id="{{artwork.id}}" href="#">Show comments</a>
+                <div class="comment"/>
+            </div>
+        </section>
+        <p/>
+        <p/>
+        <p/>
     {% empty %}
-        <section>
+        <section class="art">
             <header>
             <strong> No artwork found. </strong>
             <header>
             Come back later.
-        <section>
+        </section>
     {% endfor %}
-</article>
 {% endblock %}
 

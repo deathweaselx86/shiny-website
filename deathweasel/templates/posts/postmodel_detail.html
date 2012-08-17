@@ -1,22 +1,20 @@
 {% extends "generic_base.html" %}
 {% block content%}
 <script type="text/javascript" src="http://www.deathweasel.net/static/js/posts.js"></script>
-<article>
 <section>
     <header>
-    <h2>{{object.title}}</h2>
+        <h2>{{object.title}}</h2>
     </header>
     <section>
-    {% autoescape on %}
-    {{object.body}}
-    {% endautoescape %}
-    <p/>
-    <label>Posted by: </label>{{object.user}}<br/>
-    <label>Date:</label>{{object.date}}<br/>
-    <label>Categories</label>: {% for cat in object.category.all %}
-    {{cat}} &nbsp;
-    {% endfor %}
+        {% autoescape on %}
+            {{object.body}}
+        {% endautoescape %}
+        <p/>
+        <label>Posted by: </label>{{object.user}}<br/>
+        <label>Date:</label>{{object.date}}<br/>
+        <label>Categories</label>: {% for cat in object.category.all %}
+        {{cat}} &nbsp;
+        {% endfor %}
     </section>
-</article>
 {% endblock %}
 

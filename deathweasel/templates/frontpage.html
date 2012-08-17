@@ -1,14 +1,11 @@
 {% extends "generic_base.html" %}
-{% block title %}Who likes pie?{% endblock %}
 {% block content %}
-<article>
-<header>
-<h2>Content! Amazing!</h2>
-</header>
-<section>
-Well, I'm almost done with the first application on this site, so I can actually expose some content.
-Thanks for your patience.
+{% load webdesign %}
+<section class="post">
+    <header>
+    <h2>Content! Amazing!</h2>
+    </header>
+    {% lorem 4 p %}    
 </section>
-</article>
 {% endblock %}
 

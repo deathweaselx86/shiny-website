@@ -35,4 +35,27 @@ $(document).ready(function() {
     });
 
 
+// form validation
+
+//$(document).ready( function(){
+//    $("form#artform").validate({
+//        rules: {
+//            id_desc: {
+//                 required:true,
+//                 maxlength: 500
+//                },
+//            id_artist: {
+//                 required:true,
+//                 maxlength: 200
+//                },
+//            id_title: {
+//               required:true,
+//                 maxlength: 200
+//                },
+//            id_image: {
+//                 required:true
+//                }
+//            }
+//        });
+//});
 

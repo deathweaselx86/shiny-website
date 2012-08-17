@@ -1,23 +1,22 @@
 {% extends "generic_base.html" %}
 {% block content%}
 <script type="text/javascript" src="http://www.deathweasel.net/static/js/artwork.js"></script>
-<article>
+{{form.media}}
     <header>
     <h2>Upload New Artwork</h2>
     </header>
     <section>
-        <form action="/artwork/upload/" enctype="multipart/form-data" method="post">
+        <form id="artform" action="/artwork/upload/" enctype="multipart/form-data" method="post">
             <fieldset>
             {% csrf_token %}
+            <label> Image Upload </label> {{ form.image }} <br/>
             <label> New Artwork Title </label> {{ form.title }}<br/>
             <label> Artwork Medium </label> {{ form.medium }}<br/>
             <label> Artist </label> {{ form.artist }}<br/>
-            <label> Image Upload </label> {{ form.image }} <br/>
             <label> Artwork Description </label> {{ form.desc }}<br/>
             <input type="submit" value="Submit"/>
             </fieldset>
         </form>
     </section>
-</article>
 {% endblock %}
 

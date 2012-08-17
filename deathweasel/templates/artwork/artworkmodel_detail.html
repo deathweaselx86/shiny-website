@@ -1,20 +1,15 @@
 {% extends "generic_base.html" %}
 {% block content%}
 <script type="text/javascript" src="http://www.deathweasel.net/static/js/artwork.js"></script>
-<article>
-    <section>
+    <section class="art">
         <header>
             <h2>Detailed view for {{object.title}}</h2>
         </header>
-        <div>
+
             <figure>
                 <img class="artimage" src="{{object.image.url}}"/>
             </figure>
-            <div id="cleardiv">
-                &nbsp;
-            </div>
-        </div>
-        <section>
+        <section class="artinfo">
             <label>Medium:</label>{{object.medium}}<br/>
             <label>Artist:</label>{{object.artists}}<br/>
             <label>Description:</label>{{object.desc}}<br/>
@@ -27,6 +22,4 @@
             <div id="comment"/>
         </section>
     </section>
-</article>
 {% endblock %}
-
