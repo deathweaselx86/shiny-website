@@ -3,7 +3,8 @@
 # vim: fileencoding=utf-8 tabstop=4 expandtab shiftwidth=4 
 # Create your views here.
 
-from posts.models import PostModel, CategoryModel, CommentModel
+from artwork.models import KeywordModel
+from posts.models import PostModel, CommentModel
 from forms import PostForm, CommentForm
 
 from django.http import HttpResponse, HttpResponseRedirect
@@ -54,16 +55,18 @@ def add_post(request):
     """
     if request.method == "GET":
         form = PostForm() 
-        return render_to_response("posts/upload.html",
+        return render_to_response("posts/add.html",
                                   {"form":form},
                                   context_instance=RequestContext(request))
     else:
         form = PostForm(request.POST)
         if form.is_valid():
-            new_post = form.save()
+            new_post = form.save(commit=False)
+            new_post.user = request.user
+            new_post.save()
             return HttpResponseRedirect("/posts/%s/" % (model.id,))
         else:
-            return render_to_response("artwork/upload.html",
+            return render_to_response("posts/add.html",
                                       {"form":form},
                                       context_instance=RequestContext(request))
 
@@ -82,6 +85,7 @@ def modify_post(request, **kwargs):
         post_form = PostForm(instance=my_post)
         return render_to_respose("posts/modify.html",
                                 {"form":post_form,
+                                 "pk":pk,
                                 "comments": comments},
                                 context_instance=RequestContext(request))
     else:
@@ -94,11 +98,12 @@ def modify_post(request, **kwargs):
                 return HttpResponseRedirect("/posts/")
             else:
                 my_post.save()
-                return HttpResponseRedirect("/posts/%(pk)s/modify/" % locals())
+                return HttpResponseRedirect("/posts/modify/%(pk)s" % locals())
         else:
             return render_to_response("/posts/modify.html",
                                       {"form": post_form, 
-                                       "comments": comments},
+                                        "pk": pk,
+                                        "comments": comments},
                                       context_instance=RequestContext(request))
 
 

@@ -8,7 +8,7 @@ from django.forms import ModelForm
 class PostForm(ModelForm):
     class Meta:
         model=PostModel
-        exclude = ('date','user','slug')
+        exclude = ('date','user')
     class Media:
         js = ('http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/additional-methods.min.js',\
                 'http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js')
