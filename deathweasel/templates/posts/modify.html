@@ -1,0 +1,35 @@
+{% extends "generic_base.html" %}
+{% block content%}
+<section>
+    <script type="text/javascript" src="http://www.deathweasel.net/static/js/artwork.js"></script>
+    {{form.media}}
+    <header>
+    <h2>Modify Post</h2>
+    </header>
+    <form id="postform" action="/posts/modify/{{pk}}" enctype="multipart/form-data" method="post">
+        <fieldset>
+            <section>
+                <header>
+                <h3> Modify Post </h3>
+                </header>
+                {% csrf_token %}
+                {{form.title}}<br/>
+                {{form.body}}<br/>
+                {{form.allow_comments}}<br/>
+                {{form.viewable}}<br/>
+                {{form.category}}<br/>
+                Delete this artwork? <input type="checkbox" name="delete" id="delete"/> <br/>
+            </section>
+            <section>
+                <header>
+                <h3> View/Delete Comments </h3>
+                </header>
+                    <a class="postmodifycomment" id="{{pk}}" href="#">Show comments...</a>
+                    <div id="comment"/>
+            </section>
+        </fieldset>
+        <input type="submit" value="Submit"/>
+    </form>
+</section>
+{% endblock %}
+

@@ -1,39 +1,30 @@
 {% extends "generic_base.html" %}
 {% block content  %}
+{% load thumbnail %}
 <script type="text/javascript" src="http://www.deathweasel.net/static/js/artwork.js"></script>
+    <section class="art">
+    <header>
+    <h2> Artwork </h2>
+    </header>
+    <section class="art">
     {% for artwork in object_list %}
-        <section class="art">
-            <header>
-                <h2>{{artwork.title}}</h2>
-            </header>    
-            <p/>
-            <figure>
-                <img class="artimage" src="{{ artwork.image.url }}"/>
-            </figure>
-            <br/>
-            <div class="artinfo">
-                <h3>Artwork Information</h3>
-                <label>Medium:</label> {{artwork.medium}}<br/>
-                <label>Artist:</label> {{artwork.artist}}<br/>
-                <label>Description:</label> {{artwork.desc}}<p/>
-            </div>
-            <div>
-                <h3> Comments for {{artwork.title}}</h3>
-                <p/>
-                <a class="artcomment" id="{{artwork.id}}" href="#">Show comments</a>
-                <div class="comment"/>
-            </div>
-        </section>
-        <p/>
-        <p/>
-        <p/>
+                {% thumbnail artwork.image "100x100" crop="center" as im %}
+                <a href="/artwork/{{artwork.id}}"><img src="{{im.url}}" width="{{im.width}}" height="{{im.height}}"/></a>
+                {% endthumbnail %}
     {% empty %}
-        <section class="art">
-            <header>
-            <strong> No artwork found. </strong>
-            <header>
-            Come back later.
-        </section>
+                No artwork found. Come back later.
     {% endfor %}
+    </section>
+    {% if object_list.is_paginated %}
+        <section class="pagination">
+            {% if object_list.has_previous %}
+                <a href=="../{{object_list.previous_page_number}}">previous page</a></br>
+            {% endif %}
+            Page {{ object_list.number }} of {{ object_list.num_pages }}<br/>
+            {% if object_list.has_next %}
+                <a href="../{{object_list.next_page_number}}">next page</a></br>
+            {% endif %}
+        </section>
+    {% endif %}
 {% endblock %}
 

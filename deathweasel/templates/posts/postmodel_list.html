@@ -7,21 +7,19 @@
             <h2>{{object.title}}</h2>
         </header>
         <section>
-            {% autoescape on %}
-                {{object.body}}
-            {% endautoescape %}
+            {{object.body|safe}}
+            <p/>    
             <div class="postinfo">
-            <label>Posted by: </label>{{object.user}}<br/>
-            <label>Date:</label>{{object.date}}<br/>
+            Posted by {{object.user}} on {{object.date}}<br/>
             <label>Categories</label>: 
                 {% for cat in object.category.all %}
-                {{cat}} &nbsp;
+                {{cat}}
                 {% endfor %}
             </div>
         </section>
     </section>
 {% empty %}    
-<section>
+<section class="post">
     <header>
         <h2>No posts available</h2>
     </header>

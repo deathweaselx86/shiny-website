@@ -1,0 +1,22 @@
+{% extends "generic_base.html" %}
+{% block content%}
+<script type="text/javascript" src="http://www.deathweasel.net/static/js/post.js"></script>
+{{form.media}}
+    <header>
+    <h2>Make New Post</h2>
+    </header>
+    <section>
+        <form id="postform" action="/posts/add" method="post">
+            <fieldset>
+            {% csrf_token %}
+            <label> Title </label> {{ form.title }} <br/>
+            <label> Body </label> {{ form.body }}<br/>
+            <label> Allow Comments?</label> {{ form.allow_comments }}<br/>
+            <label> Viewable?</label> {{ form.viewable }}<br/>
+            <label> Categories</label> {{form.category }}<br/>
+            <input type="submit" value="Submit"/>
+            </fieldset>
+        </form>
+    </section>
+{% endblock %}
+

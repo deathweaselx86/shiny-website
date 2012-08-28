@@ -10,15 +10,33 @@
                 <img class="artimage" src="{{object.image.url}}"/>
             </figure>
         <section class="artinfo">
-            <label>Medium:</label>{{object.medium}}<br/>
-            <label>Artist:</label>{{object.artists}}<br/>
-            <label>Description:</label>{{object.desc}}<br/>
+            <label>Title: </label> {{object.title}}<br/>
+            <label>Artist: </label> {{object.artist}}<br/>
+            <label>Medium: </label> {{object.medium}}<br/>
+            <label>Description: </label> {{object.desc}}<br/>
+            <label>Keywords: </label> 
+            {% for keyword in object.keywords.all %}
+                {{ keyword }}&nbsp;
+            {% endfor %}
+            <br/>
+
+            <br/>    
         </section>
         <section>
             <header>
             <h3>Comments for {{object.title}}</h3>
             </header>
-            <a class="artcomment" id={{object.id}} href="#">Show comments...</a>
+<!--            <a onclick="showAddComment()" href="#">Add comment</a>
+            <div class="addcomment">
+                <form>
+                    <formset>
+                            <label>Author: </label> {{comment.author}}<br/>
+                            <label>Title: </label> {{comment.title}}<bri/>
+                            <label>Body: </label> {{comment.body}}</br>
+                    </formset>
+                </form>
+            </div> --!>
+            <a class="artcomment" id={{object.id}} href="#">Show comments</a>
             <div id="comment"/>
         </section>
     </section>

@@ -12,21 +12,28 @@
                 <header>
                  <h3> Modify Artwork </h3>
                 </header>
-                {% csrf_token %}
-                {{form.image}}<br/>
+            {% csrf_token %}
+            <div>
+            <span id="nonimage" style="float:left">
                 {{form.title}}<br/>
                 {{form.medium}}<br/>
-                {{form.artist}}<br/>
                 {{form.desc}}<br/>
-                Delete this artwork? <input type="checkbox" name="delete" id="delete"/> <br/>
-            </section>
-            <section>
+                {{form.keywords.objets.all}}<br/>
+                {{form.delete_art}}<br/>
+            </span>
+            <span id="image" style="float:right">
+                {{form.image}}
+            <span>
+            <div style="clear:both;"/>        
+            </div>
+                        </section>
+           <!-- <section>
                 <header>
                 <h3> View/Delete Comments </h3>
                 </header>
                     <a class="artmodifycomment" id="{{pk}}" href="#">Show comments...</a>
                     <div id="comment"/>
-            </section>
+                        </section> --!>
         </fieldset>
         <input type="submit" value="Submit"/>
     </form>

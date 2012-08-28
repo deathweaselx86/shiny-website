@@ -9,11 +9,18 @@
         <form id="artform" action="/artwork/upload/" enctype="multipart/form-data" method="post">
             <fieldset>
             {% csrf_token %}
-            <label> Image Upload </label> {{ form.image }} <br/>
-            <label> New Artwork Title </label> {{ form.title }}<br/>
-            <label> Artwork Medium </label> {{ form.medium }}<br/>
-            <label> Artist </label> {{ form.artist }}<br/>
-            <label> Artwork Description </label> {{ form.desc }}<br/>
+            <div>
+            <span id="nonimage" style="float:left">
+                {{form.title}}<br/>
+                {{form.medium}}<br/>
+                {{form.desc}}<br/>
+                {{form.keywords}}<br/>
+            </span>
+            <span id="image" style="float:right">
+                {{form.image}}
+            <span>
+            <div style="clear:both;"/>        
+            </div>
             <input type="submit" value="Submit"/>
             </fieldset>
         </form>
