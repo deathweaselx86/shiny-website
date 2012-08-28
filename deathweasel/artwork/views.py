@@ -4,7 +4,7 @@
 # Create your views here.
 
 from artwork.models import ArtworkModel, CommentModel, shrinkImage
-from forms import ArtworkForm
+from forms import ArtworkForm, ModifyForm
 
 from django.http import HttpResponse, HttpResponseRedirect
 
@@ -24,20 +24,29 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from django.contrib.auth.models import User
 
-class IndexView(TemplateView):
-    template_name = "frontpage.html"
-
 class ArtListView(ListView):
     template_name = 'artwork/artworkmodel_list.html'
     model = ArtworkModel
-    paginate_by=10
+    paginate_by=30
 
 class ArtModelView(DetailView):
     template_name = 'artwork/artworkmodel_detail.html'
     model = ArtworkModel
 
+def view_art_by_medium(request, **kwargs):
+    """
+        This view allows you to view artwork based on medium.
+    """
+    medium = kwargs['medium']
+    # Get artwork based on medium
+    medium_artwork = ArtworkModel.objects.filter(medium=medium)
+    return render_to_response("artwork/filtered_artwork.html",
+                             {"filter": medium,
+                              "filter_type": "medium"},
+                             context_instance=RequestContext(request))
+
 """
-    The next few methods  have something to do with artwork management.
+    The next few functions  have something to do with artwork management.
 
     To manage my artwork successfully, I need:
         - to authenticate, which we can manage with some auth code built into Django
@@ -64,10 +73,11 @@ def upload_artwork(request):
     
     else:
         # Then we should process the form the user submitted.
-        # Validate in Javascript.
         form = ArtworkForm(request.POST, request.FILES)
         if form.is_valid():
-            my_model = form.save()
+            my_model = form.save(commit=False)
+            my_model.artist = request.user
+            my_model.save()
             # I can't count on this image being where I need it to be
             # until I upload it so I have to save it before shrinking it.
             shrinkImage(my_model)
@@ -114,31 +124,63 @@ def modify_artwork(request, **kwargs):
         # If this is a GET request, we should prepopulate a form with the artwork information.
         # Let's go ahead and reuse the ArtModelForm.
         my_art = ArtworkModel.objects.get(id=pk)
-        art_form = ArtworkForm(instance=my_art)
+        modify_form = populate_modify_form(my_art)
         return render_to_response("artwork/modify.html",
-                                 {"form":art_form,
+                                 {"form":modify_form,
                                   "pk": pk},
                                  context_instance=RequestContext(request))
     else:
         # If this is a POST request, we should take the form data handed to us
         #with the changed form information and resave it. 
         
-        art_form = ArtworkForm(request.POST, request.FILES)
-        if art_form.is_valid():
+        modify_form = ModifyForm(request.POST, request.FILES)
+        if modify_form.is_valid():
         # Hopefully this deletes the comments associated with the image as well.
-            delete_artwork = request.POST.get("delete", None) 
-            if delete_artwork and delete_artwork == "on":
-                my_art = ArtworkModel.objects.get(id=pk)
-                my_art.delete()
-                return HttpResponseRedirect("artwork/")
+            # If the delete checkbox is selected, delete it
+            if modify_form.cleaned_data['delete_art']:
+                my_art = ArtworkModel.objects.get(id=pk).delete()
+                HttpResponseRedirect("http://www.deathweasel.com/artwork/")
             else:
-                art_form.save()
-        return HttpResponseRedirect("artwork/modify/%(pk)s" % locals())
+                my_art = populate_artmodel(modify_form, pk)
+                my_art.save()
+                HttpResponseRedirect("http://www.deathweasel.com/artwork/%s/" % (pk,))
+        else:
+        # Recycle the form.
+            return render_to_response("artwork/modify.html",
+                                     {"form":modify_form,
+                                      "pk": pk},
+                                     context_instance=RequestContext(request))
+
+# Fill the modify artwork form.
+def populate_modify_form(art_model):
+    """
+        This function populates the ModifyForm with the appropriate contents of
+        the corresponding ArtModel.
+    """
+    artmodel_attrs = ('title', 'artist', 'medium','desc','keywords')
+    data = {}
+    for attr in artmodel_attrs:
+        art_model_string = '.'.join(('art_model', attr))
+        data[attr] = eval(art_model_string)
+    image = {'image': art_model.image}
+    return ModifyForm(data, image)
+
+def populate_artmodel(modify_form, pk):
+    """
+        This function takes data in the ModifyForm and puts it in the ArtModel in
+        anticipation of saving it.
+    """
+    my_art = ArtworkModel.objects.get(id=pk)
+    for key, value in modify_form.iteritems():
+        if key == 'delete_art':
+            continue
+        my_art.setattr(key,value)
+    return my_art
 
 # The rest of this crap is primitive ajax.
 def delete_comment(request, **kwarg):
     """
-        This method selectively deletes a comment based on the comment
+        This function selectively deletes a comment based on the comment
         unique id.
     """
     pk = kwarg["pk"]
@@ -150,7 +192,7 @@ def delete_comment(request, **kwarg):
 
 def get_deletable_comments(request, **kwargs):
     """
-        This method retrieves the comment associated with the artwork pk.
+        This function retrieves the comment associated with the artwork pk.
     """
     
     pk = kwargs["pk"]   
@@ -160,7 +202,7 @@ def get_deletable_comments(request, **kwargs):
 
 def get_comments(request, **kwargs):
     """
-        This method retrieves the comment associated with the artwork pk.
+        This function retrieves the comment associated with the artwork pk.
     """
     
     pk = kwargs["pk"]   

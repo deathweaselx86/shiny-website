@@ -5,6 +5,15 @@ from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
 
+MEDIUMS = (('ink', 'ink'),
+               ('graphite', 'graphite'),
+               ('watercolor', 'watercolor'),
+               ('oil', 'oil'),
+               ('acrylic', 'acrylic'),
+               ('digital', 'digital'),
+               ('sculpture', 'sculpture'),
+               ('other','other'))
+
 # Create your models here.
 def getFilePath(instance, filename):
     """
@@ -70,29 +79,24 @@ class ArtworkModel(models.Model):
         unnecessary, but I'm throwing it in because I'd like to be able
         to upload collaborations.
     """
-    MEDIUMS = (('ink', 'ink'),
-               ('graphite', 'graphite'),
-               ('watercolor', 'watercolor'),
-               ('oil', 'oil'),
-               ('acrylic', 'acrylic'),
-               ('digital', 'digital'),
-               ('sculpture', 'sculpture'),
-               ('other','other'))
-
+    
     title = models.CharField(max_length=200)
     medium = models.CharField(max_length=200, choices=MEDIUMS, default='graphite')
     upload_date = models.DateTimeField(auto_now_add=True)
     # I would have prefered to have this correspond with the user uploading
     # but it's too much trouble for now.
-    artist = models.CharField(max_length=200)
+    artist = models.ForeignKey(User)
     image = models.ImageField(upload_to=getFilePath)
     desc = models.TextField(verbose_name="Description", max_length=500)
-
+    keywords = models.ManyToManyField('KeywordModel')
     class Meta:
         ordering = ['title']
 
     def __unicode__(self):
-        return '-'.join((self.title, self.artist, self.medium))
+        return '-'.join((self.title, self.artist.username, self.medium))
+
+    def get_absolute_url(self):
+        return "/artwork/%s/" % self.id
 
 class CommentModel(models.Model):
     """
@@ -106,5 +110,18 @@ class CommentModel(models.Model):
     artwork = models.ForeignKey(ArtworkModel)
     date = models.DateTimeField(auto_now_add=True)
 
+    def __unicode__(self):
+        return ' '.join((self.author, self.title, "on", self.title))
     class Meta:
         ordering = ['date']
+    
+class KeywordModel(models.Model):
+    """
+        This class is here so we can search artwork on keywords.
+    """
+    keyword = models.CharField(max_length=200, blank=False)
+
+    def __unicode__(self):
+        return self.keyword
+
+    # Absolute url here should be a link to search on keyword
