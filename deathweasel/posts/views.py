@@ -64,7 +64,7 @@ def add_post(request):
             new_post = form.save(commit=False)
             new_post.user = request.user
             new_post.save()
-            return HttpResponseRedirect("/posts/%s/" % (model.id,))
+            return HttpResponseRedirect("/posts/%s/" % (new_post.id,))
         else:
             return render_to_response("posts/add.html",
                                       {"form":form},
