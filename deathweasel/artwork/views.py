@@ -77,7 +77,7 @@ def upload_artwork(request):
         if form.is_valid():
             my_model = form.save(commit=False)
             my_model.artist = request.user
-            my_model.save()
+            my_model.save_m2m()
             # I can't count on this image being where I need it to be
             # until I upload it so I have to save it before shrinking it.
             shrinkImage(my_model)
@@ -122,7 +122,6 @@ def modify_artwork(request, **kwargs):
     # pk is the primary key of the art model we want to change
     if request.method == 'GET':
         # If this is a GET request, we should prepopulate a form with the artwork information.
-        # Let's go ahead and reuse the ArtModelForm.
         my_art = ArtworkModel.objects.get(id=pk)
         modify_form = populate_modify_form(my_art)
         return render_to_response("artwork/modify.html",
@@ -142,10 +141,13 @@ def modify_artwork(request, **kwargs):
                 HttpResponseRedirect("http://www.deathweasel.com/artwork/")
             else:
                 my_art = populate_artmodel(modify_form, pk)
-                my_art.save()
+                my_art.save_m2m()
                 HttpResponseRedirect("http://www.deathweasel.com/artwork/%s/" % (pk,))
         else:
-        # Recycle the form.
+        # Recycle the form. I should not have to reinitialize the form to get the image
+        # data to stick to the form, but apparently I have to.
+            my_art = ArtworkModel.objects.get(id=pk)
+            modify_form = populate_modify_form(my_art)
             return render_to_response("artwork/modify.html",
                                      {"form":modify_form,
                                       "pk": pk},
@@ -157,11 +159,12 @@ def populate_modify_form(art_model):
         This function populates the ModifyForm with the appropriate contents of
         the corresponding ArtModel.
     """
-    artmodel_attrs = ('title', 'artist', 'medium','desc','keywords')
+    artmodel_attrs = ('title', 'artist', 'medium','desc')
     data = {}
     for attr in artmodel_attrs:
         art_model_string = '.'.join(('art_model', attr))
         data[attr] = eval(art_model_string)
+    data['keywords'] = art_model.keywords.all()
     image = {'image': art_model.image}
     return ModifyForm(data, image)
 
@@ -170,20 +173,24 @@ def populate_artmodel(modify_form, pk):
         This function takes data in the ModifyForm and puts it in the ArtModel in
         anticipation of saving it.
     """
+    
+    # Sigh.
     my_art = ArtworkModel.objects.get(id=pk)
-    for key, value in modify_form.iteritems():
-        if key == 'delete_art':
-            continue
-        my_art.setattr(key,value)
+    
+    my_art.title = modify_form.cleaned_data["title"]
+    my_art.medium = modify_form.cleaned_data["medium"]
+    my_art.desc = modify_form.cleaned_data["desc"]
+    my_art.keywords = modify_form.cleaned_data["keywords"]
+    my_art.image = modify_form.cleaned_data["image"]
     return my_art
 
 # The rest of this crap is primitive ajax.
-def delete_comment(request, **kwarg):
+def delete_comment(request, **kwargs):
     """
         This function selectively deletes a comment based on the comment
         unique id.
     """
-    pk = kwarg["pk"]
+    pk = kwargs["pk"]
     comment = CommentModel.objects.get(id=pk)
     comment.delete()
     # Whatever. I'm not going to do anything with this output.

@@ -83,12 +83,11 @@ class ArtworkModel(models.Model):
     title = models.CharField(max_length=200)
     medium = models.CharField(max_length=200, choices=MEDIUMS, default='graphite')
     upload_date = models.DateTimeField(auto_now_add=True)
-    # I would have prefered to have this correspond with the user uploading
-    # but it's too much trouble for now.
     artist = models.ForeignKey(User)
     image = models.ImageField(upload_to=getFilePath)
     desc = models.TextField(verbose_name="Description", max_length=500)
     keywords = models.ManyToManyField('KeywordModel')
+    
     class Meta:
         ordering = ['title']
 
@@ -112,6 +111,7 @@ class CommentModel(models.Model):
 
     def __unicode__(self):
         return ' '.join((self.author, self.title, "on", self.title))
+    
     class Meta:
         ordering = ['date']
     

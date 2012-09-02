@@ -16,7 +16,6 @@ class ModifyImageInput(forms.ClearableFileInput):
         SHOW the image rather than a link to it.
     
         I am deliberately leaving out the case of the non-required image field.
-        TODO: Can I leverage sorl.thumbnail here?
     """
     def render(self, name, value, attrs=None):
         substitutions = {
@@ -48,14 +47,14 @@ class ModifyForm(forms.Form):
     """
         This form is used for the artwork modify screen.
     """
-    # Not done.
     title = forms.CharField(max_length=200)
-    artist = forms.ModelChoiceField(queryset=User.objects.all())
-    medium = forms.ChoiceField(required=True, choices=MEDIUMS)
-    image = forms.ImageField(required=True, widget=ModifyImageInput)
-    desc = forms.CharField(max_length=500, widget=forms.Textarea)
+    medium = forms.ChoiceField(choices=MEDIUMS)
+    image = forms.ImageField(widget=ModifyImageInput)
+    desc = forms.CharField(max_length=500,
+            widget=forms.Textarea(attrs={"cols":30, "rows":15}))
     keywords = forms.ModelMultipleChoiceField(queryset=KeywordModel.objects.all())
     delete_art = forms.BooleanField()
+    
     class Media:
          js = (
                'http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js', 
