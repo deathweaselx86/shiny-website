@@ -150,6 +150,20 @@ article {
     padding: 10px;
     margin: 10px;
 }
+span.nonimage, span.nonpost
+{
+    float:left;
+}
+
+span.image, span.post
+{
+}
+
+textarea.id_body, textarea.id_post
+{
+    cols:24;
+}
+
 section.comment header{
     font-weight: bold;
 }

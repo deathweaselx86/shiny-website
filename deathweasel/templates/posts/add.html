@@ -9,11 +9,15 @@
         <form id="postform" action="/posts/add" method="post">
             <fieldset>
             {% csrf_token %}
-            <label> Title </label> {{ form.title }} <br/>
-            <label> Body </label> {{ form.body }}<br/>
-            <label> Allow Comments?</label> {{ form.allow_comments }}<br/>
-            <label> Viewable?</label> {{ form.viewable }}<br/>
-            <label> Categories</label> {{form.category }}<br/>
+            <span id="nonpost">
+                <label> Title </label> {{ form.title }} <br/>
+                <label> Allow Comments?</label> {{ form.allow_comments }}<br/>
+                <label> Viewable?</label> {{ form.viewable }}<br/>
+                <label> Categories</label> {{form.category }}<br/>
+            </span>
+            <span id="post">
+                <label> Body </label> {{ form.body }}<br/>
+            </span>
             <input type="submit" value="Submit"/>
             </fieldset>
         </form>

@@ -1,0 +1,30 @@
+<script type="text/javascript">
+$(document).ready(function() {
+    $("input.deletecomment").change(
+        function() {
+            var key = $(this).attr('key');
+            var link = "/artwork/comments/delete/" + key;
+            $.ajax({ url: link});
+            $("section[key="+key+"]").hide();
+             }
+
+        );
+    });
+</script>
+{% for comment in comments %}
+<section class="comment" key="{{comment.id}}">
+    <header>
+    Comment on {{comment.date}} left by {{comment.author}}<br/>
+    <input type="checkbox" key="{{comment.id}}" class="deletecomment"> Delete this comment?</a>
+    </header>
+    <div class="commentbody">
+        {{comment.body}}<br/>
+    </div>
+</section>
+{% empty %}
+<section class="comment">
+    <div class="commentbody">
+        No comments available.
+    </div>
+</section>
+{% endfor %}

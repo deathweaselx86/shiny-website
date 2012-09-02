@@ -6,27 +6,26 @@
     <header>
     <h2>Modify Artwork and Comments</h2>
     </header>
-    <form id="artform" action="/artwork/modify/{{pk}}" enctype="multipart/form-data" method="post">
+    <form id="artform" action="/artwork/modify/{{pk}}/" enctype="multipart/form-data" method="post">
         <fieldset>
-            <section>
-                <header>
-                 <h3> Modify Artwork </h3>
-                </header>
             {% csrf_token %}
             <div>
-            <span id="nonimage" style="float:left">
-                {{form.title}}<br/>
-                {{form.medium}}<br/>
-                {{form.desc}}<br/>
-                {{form.keywords.objets.all}}<br/>
-                {{form.delete_art}}<br/>
-            </span>
-            <span id="image" style="float:right">
-                {{form.image}}
-            <span>
-            <div style="clear:both;"/>        
+                <span class="nonimage">
+                    Title<br/>
+                    {{form.title}}<br/>
+                    Medium<br/>
+                    {{form.medium}}<br/>
+                    Description <br/>
+                    {{form.desc}}<br/>
+                    Keywords<br/> 
+                    {{form.keywords}}<br/>
+                    {{form.delete_art}}Delete this artwork?<br/>
+                </span>
+                <span class="image">
+                    {{form.image}}
+                <span>
+                <div style="clear:both;"/>        
             </div>
-                        </section>
            <!-- <section>
                 <header>
                 <h3> View/Delete Comments </h3>
@@ -34,8 +33,8 @@
                     <a class="artmodifycomment" id="{{pk}}" href="#">Show comments...</a>
                     <div id="comment"/>
                         </section> --!>
-        </fieldset>
         <input type="submit" value="Submit"/>
+        </fieldset>
     </form>
 </section>
 {% endblock %}

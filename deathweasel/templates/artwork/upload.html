@@ -1,25 +1,29 @@
 {% extends "generic_base.html" %}
 {% block content%}
-<script type="text/javascript" src="http://www.deathweasel.net/static/js/artwork.js"></script>
-{{form.media}}
+<section>
+    <script type="text/javascript" src="http://www.deathweasel.net/static/js/artwork.js"></script>
+    {{form.media}}
     <header>
     <h2>Upload New Artwork</h2>
     </header>
-    <section>
         <form id="artform" action="/artwork/upload/" enctype="multipart/form-data" method="post">
             <fieldset>
             {% csrf_token %}
             <div>
-            <span id="nonimage" style="float:left">
-                {{form.title}}<br/>
-                {{form.medium}}<br/>
-                {{form.desc}}<br/>
-                {{form.keywords}}<br/>
-            </span>
-            <span id="image" style="float:right">
-                {{form.image}}
-            <span>
-            <div style="clear:both;"/>        
+                <span class="nonimage">
+                    Title<br/>
+                    {{form.title}}<br/>
+                    Medium<br/>
+                    {{form.medium}}<br/>
+                    Description<br/>
+                    {{form.desc}}<br/>
+                    Keywords<br/>
+                    {{form.keywords}}<br/>
+                    </span>
+                    <span class="image">
+                        {{form.image}}
+                    <span>
+                    <div style="clear:both;"/>        
             </div>
             <input type="submit" value="Submit"/>
             </fieldset>

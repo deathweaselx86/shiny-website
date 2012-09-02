@@ -4,6 +4,7 @@
 from models import PostModel, CommentModel
 from django.forms import ModelForm
 
+from django import forms
 
 class PostForm(ModelForm):
     class Meta:
@@ -15,6 +16,7 @@ class PostForm(ModelForm):
 
 
 class CommentForm(ModelForm):
+    body = forms.CharField(max_length=500, widget=forms.Textarea(attrs={"cols":20}))
     class Meta:
         model=CommentModel
         exclude = ('date')
