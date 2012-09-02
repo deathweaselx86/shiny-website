@@ -5,7 +5,7 @@
 
 from artwork.models import KeywordModel
 from posts.models import PostModel, CommentModel
-from forms import PostForm, CommentForm
+from forms import PostForm, CommentForm, ModifyForm
 
 from django.http import HttpResponse, HttpResponseRedirect
 
@@ -64,6 +64,7 @@ def add_post(request):
             new_post = form.save(commit=False)
             new_post.user = request.user
             new_post.save()
+            form.save_m2m()
             return HttpResponseRedirect("/posts/%s/" % (new_post.id,))
         else:
             return render_to_response("posts/add.html",
@@ -81,29 +82,27 @@ def modify_post(request, **kwargs):
     pk = kwargs['pk']
     if request.method == 'GET':
         my_post = PostModel.objects.get(id=pk)
-        comments = CommentModel.objects.filter(post=pk)
-        post_form = PostForm(instance=my_post)
-        return render_to_respose("posts/modify.html",
+        post_form = ModifyForm(instance=my_post)
+        return render_to_response("posts/modify.html",
                                 {"form":post_form,
-                                 "pk":pk,
-                                "comments": comments},
+                                 "pk":pk},
                                 context_instance=RequestContext(request))
     else:
-        post_form = PostForm(request.POST)
+        my_post = PostModel.objects.get(id=pk)
+        post_form = ModifyForm(request.POST, instance=my_post)
         if post_form.is_valid():
-            delete_post = post_form.cleaned_data['deletePost']
+            delete_post = post_form.cleaned_data['delete_post']
             if delete_post:
-                my_post = PostModel.objects.get(id=pk)
                 my_post.delete()
                 return HttpResponseRedirect("/posts/")
             else:
-                my_post.save()
-                return HttpResponseRedirect("/posts/modify/%(pk)s" % locals())
+                post_form.save()
+                return HttpResponseRedirect("/posts/%(pk)s/" % locals())
         else:
-            return render_to_response("/posts/modify.html",
+            return render_to_response("posts/modify.html",
                                       {"form": post_form, 
                                         "pk": pk,
-                                        "comments": comments},
+                                        "errors": post_form.errors},
                                       context_instance=RequestContext(request))
 
 

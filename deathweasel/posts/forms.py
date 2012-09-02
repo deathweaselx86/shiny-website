@@ -14,6 +14,8 @@ class PostForm(ModelForm):
         js = ('http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/additional-methods.min.js',\
                 'http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js')
 
+class ModifyForm(PostForm):
+    delete_post = forms.BooleanField(initial=False, required=False)
 
 class CommentForm(ModelForm):
     body = forms.CharField(max_length=500, widget=forms.Textarea(attrs={"cols":20}))

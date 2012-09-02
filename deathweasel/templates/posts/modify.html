@@ -1,35 +1,40 @@
 {% extends "generic_base.html" %}
 {% block content%}
-<section>
-    <script type="text/javascript" src="http://www.deathweasel.net/static/js/artwork.js"></script>
-    {{form.media}}
+<script type="text/javascript" src="http://www.deathweasel.net/static/js/post.js"></script>
+{{form.media}}
+{{ errors }}
     <header>
-    <h2>Modify Post</h2>
+    <h2>Make New Post</h2>
     </header>
-    <form id="postform" action="/posts/modify/{{pk}}" enctype="multipart/form-data" method="post">
-        <fieldset>
-            <section>
-                <header>
-                <h3> Modify Post </h3>
-                </header>
+    <section>
+    <form id="postform" action="/posts/modify/{{pk}}/" method="post">
+            <fieldset>
                 {% csrf_token %}
-                {{form.title}}<br/>
-                {{form.body}}<br/>
-                {{form.allow_comments}}<br/>
-                {{form.viewable}}<br/>
-                {{form.category}}<br/>
-                Delete this artwork? <input type="checkbox" name="delete" id="delete"/> <br/>
-            </section>
-            <section>
+                <div>
+                    <span class="nonpost">
+                        Title <br/>
+                        {{ form.title }} <br/>
+                        Categories<br/>
+                        {{form.category }}<br/>
+                        {{ form.allow_comments }} Allow Comments? <br/>
+                        {{ form.viewable }} Viewable? <br/>
+                        {{ form.delete_post }} Delete this post? <br/>
+                    </span>
+                    <span class="postbody">
+                        Post Body <br/>
+                        {{ form.body }}<br/>
+                    </span>
+                </div>    
+                <input type="submit" value="Submit"/>
+            </fieldset>
+      <!--      <section>
                 <header>
                 <h3> View/Delete Comments </h3>
                 </header>
                     <a class="postmodifycomment" id="{{pk}}" href="#">Show comments...</a>
                     <div id="comment"/>
-            </section>
-        </fieldset>
-        <input type="submit" value="Submit"/>
-    </form>
-</section>
+                        </section> -->
+        </form>
+    </section>
 {% endblock %}
 

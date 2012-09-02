@@ -77,7 +77,8 @@ def upload_artwork(request):
         if form.is_valid():
             my_model = form.save(commit=False)
             my_model.artist = request.user
-            my_model.save_m2m()
+            my_model.save()
+            form.save_m2m()
             # I can't count on this image being where I need it to be
             # until I upload it so I have to save it before shrinking it.
             shrinkImage(my_model)
@@ -119,11 +120,12 @@ def modify_artwork(request, **kwargs):
 
     """
     pk = kwargs["pk"]
+    my_art = ArtworkModel.objects.get(id=pk)
     # pk is the primary key of the art model we want to change
     if request.method == 'GET':
         # If this is a GET request, we should prepopulate a form with the artwork information.
-        my_art = ArtworkModel.objects.get(id=pk)
-        modify_form = populate_modify_form(my_art)
+        modify_form = ModifyForm(instance=my_art)
+        # modify_form = populate_modify_form(my_art)
         return render_to_response("artwork/modify.html",
                                  {"form":modify_form,
                                   "pk": pk},
@@ -131,23 +133,18 @@ def modify_artwork(request, **kwargs):
     else:
         # If this is a POST request, we should take the form data handed to us
         #with the changed form information and resave it. 
-        
-        modify_form = ModifyForm(request.POST, request.FILES)
+        modify_form = ModifyForm(request.POST, request.FILES, instance=my_art)
         if modify_form.is_valid():
-        # Hopefully this deletes the comments associated with the image as well.
             # If the delete checkbox is selected, delete it
+            # Hopefully this deletes the comments associated with the image as well.
             if modify_form.cleaned_data['delete_art']:
-                my_art = ArtworkModel.objects.get(id=pk).delete()
-                HttpResponseRedirect("http://www.deathweasel.com/artwork/")
+                my_art.delete()
+                return HttpResponseRedirect("http://www.deathweasel.com/artwork/")
             else:
-                my_art = populate_artmodel(modify_form, pk)
-                my_art.save_m2m()
-                HttpResponseRedirect("http://www.deathweasel.com/artwork/%s/" % (pk,))
+                modify_form.save()
+                return HttpResponseRedirect("http://www.deathweasel.com/artwork/%s/" % (pk,))
         else:
-        # Recycle the form. I should not have to reinitialize the form to get the image
-        # data to stick to the form, but apparently I have to.
-            my_art = ArtworkModel.objects.get(id=pk)
-            modify_form = populate_modify_form(my_art)
+            # Recycle the form.
             return render_to_response("artwork/modify.html",
                                      {"form":modify_form,
                                       "pk": pk},
@@ -181,8 +178,9 @@ def populate_artmodel(modify_form, pk):
     my_art.medium = modify_form.cleaned_data["medium"]
     my_art.desc = modify_form.cleaned_data["desc"]
     my_art.keywords = modify_form.cleaned_data["keywords"]
-    my_art.image = modify_form.cleaned_data["image"]
-    return my_art
+    if modify_form.cleaned_data['image']:
+        my_art.image = modify_form.cleaned_data['image']
+        shrinkImage(my_art)
 
 # The rest of this crap is primitive ajax.
 def delete_comment(request, **kwargs):
