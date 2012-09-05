@@ -23,6 +23,11 @@ class PostModel(models.Model):
     class Meta:
         verbose_name_plural = "Posts"
         ordering = ['-date']
+    
+    # There is another, better way to do this, but I'm out of
+    # time to get it to work properly.
+    def get_absolute_url(self):
+        return "/posts/%s/" % self.id
 
 class CommentModel(models.Model):
     title = models.CharField(max_length=250, help_text="Maximum size is 250 characters.")
