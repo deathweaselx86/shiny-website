@@ -4,7 +4,7 @@
 # Create your views here.
 
 from artwork.models import ArtworkModel, CommentModel, shrinkImage
-from forms import ArtworkForm, ModifyForm
+from forms import ArtworkForm, ModifyForm, CommentForm
 
 from django.http import HttpResponse, HttpResponseRedirect
 
@@ -28,10 +28,16 @@ class ArtListView(ListView):
     template_name = 'artwork/artworkmodel_list.html'
     model = ArtworkModel
     paginate_by=30
-
+    
 class ArtModelView(DetailView):
     template_name = 'artwork/artworkmodel_detail.html'
     model = ArtworkModel
+
+    def get_context_data(self, **kwargs):
+        context = {}
+        context['comment_form'] = CommentForm()
+        context.update(kwargs)
+        return super(ArtModelView, self).get_context_data(**context)
 
 def view_art_by_medium(request, **kwargs):
     """
@@ -150,38 +156,6 @@ def modify_artwork(request, **kwargs):
                                       "pk": pk},
                                      context_instance=RequestContext(request))
 
-# Fill the modify artwork form.
-def populate_modify_form(art_model):
-    """
-        This function populates the ModifyForm with the appropriate contents of
-        the corresponding ArtModel.
-    """
-    artmodel_attrs = ('title', 'artist', 'medium','desc')
-    data = {}
-    for attr in artmodel_attrs:
-        art_model_string = '.'.join(('art_model', attr))
-        data[attr] = eval(art_model_string)
-    data['keywords'] = art_model.keywords.all()
-    image = {'image': art_model.image}
-    return ModifyForm(data, image)
-
-def populate_artmodel(modify_form, pk):
-    """
-        This function takes data in the ModifyForm and puts it in the ArtModel in
-        anticipation of saving it.
-    """
-    
-    # Sigh.
-    my_art = ArtworkModel.objects.get(id=pk)
-    
-    my_art.title = modify_form.cleaned_data["title"]
-    my_art.medium = modify_form.cleaned_data["medium"]
-    my_art.desc = modify_form.cleaned_data["desc"]
-    my_art.keywords = modify_form.cleaned_data["keywords"]
-    if modify_form.cleaned_data['image']:
-        my_art.image = modify_form.cleaned_data['image']
-        shrinkImage(my_art)
-
 # The rest of this crap is primitive ajax.
 def delete_comment(request, **kwargs):
     """
@@ -194,16 +168,6 @@ def delete_comment(request, **kwargs):
     # Whatever. I'm not going to do anything with this output.
     return HttpResponseRedirect("artwork/" % locals())
 
-
-def get_deletable_comments(request, **kwargs):
-    """
-        This function retrieves the comment associated with the artwork pk.
-    """
-    
-    pk = kwargs["pk"]   
-    these_comments = CommentModel.objects.filter(artwork=pk)
-    return render_to_response("artwork/comments_modify.html",
-                               {"comments": these_comments})
 
 def get_comments(request, **kwargs):
     """

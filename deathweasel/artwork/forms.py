@@ -50,29 +50,12 @@ class ModifyForm(ArtworkForm):
     delete_art = forms.BooleanField(required=False)
     image = forms.ImageField(widget=ModifyImageInput, required=False)
     desc = forms.CharField(max_length=500,
-        widget=forms.Textarea(attrs={"cols":30, "rows":15}))
-    
-#class ModifyForm(forms.Form):
-#    """
-#        This form is used for the artwork modify screen.
-#    """
-#    title = forms.CharField(max_length=200)
-#    medium = forms.ChoiceField(choices=MEDIUMS)
-#    image = forms.ImageField(widget=ModifyImageInput, required=False)
-#    desc = forms.CharField(max_length=500,
-#            widget=forms.Textarea(attrs={"cols":30, "rows":15}))
-#    keywords = forms.ModelMultipleChoiceField(queryset=KeywordModel.objects.all())
-#    delete_art = forms.BooleanField(required=False)
-#    
-#    class Media:
-#         js = (
-#               'http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js', 
-#               'http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/additional-methods.min.js')
+            widget=forms.Textarea(attrs={"cols":30, "rows":15}))
 
 class CommentForm(forms.ModelForm):
     class Meta:
         model=CommentModel
-        exclude = ('date',)
+        exclude = ('date', 'artwork')
     class Media:
          js = (
                'http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js', 
