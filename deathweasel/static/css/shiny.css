@@ -1,22 +1,28 @@
-body   {
+/* TODO: Organize this. */
+body   
+{
     color: #40314E;
     font-family: Helvetica, Arial, sans-serif;
     font-size: 1.2 em;
 }
 
-h1, h2, h3, h4, h5 { 
-font-variant: small-caps; 
+h1, h2, h3, h4, h5 
+{ 
+    font-variant: small-caps; 
 }
 
 /* This is here for the consumption of certain browsers that do not support HTML5 */
-aside, details, figcaption, figure, footer, header, hgroup, nav, section { 
-        display: block; 
-    }
+aside, details, figcaption, figure, footer, header, hgroup, nav, section 
+{
+    display: block; 
+}
 
-#header{
+#header
+{
     background-image:url('http://deathweasel.net/static/artwork/acrylics/dragon.jpg');
 }
-#header, #navbar, #middle, #footer{
+#header, #navbar, #middle, #footer
+{
     margin: 0 auto;
     width: 800px;
     clear: both;
@@ -25,6 +31,17 @@ aside, details, figcaption, figure, footer, header, hgroup, nav, section {
 #header h1, #footer h6
 {
     margin: 0 0 0 10px;
+}
+
+.error 
+{
+    color: red;
+    font-size: 1 em;
+}
+
+.invalidinput
+{
+    border: medium solid red;
 }
 
 ul.topnav
@@ -46,7 +63,8 @@ ul.topnav li
     position: relative;
 } 
 
-ul.topnav li a {
+ul.topnav li a 
+{    
     padding: 3px 3px;
     display: block;
     float: left;
@@ -54,19 +72,23 @@ ul.topnav li a {
     color: #C4BBD0;
 }
 
-ul.topnav li a:hover {
+ul.topnav li a:hover 
+{
     color: #59456D;
 }
 
-ul.topnav li span {
-        float: left;
-    }
+ul.topnav li span 
+{
+    float: left;
+}
 
-ul.topnav li span.subhover {
+ul.topnav li span.subhover 
+{
     background-position: center bottom;
     cursor: pointer;
 }
-ul.topnav li ul.subnav {
+ul.topnav li ul.subnav 
+{
     list-style:none;
     position: absolute;
     left:0;
@@ -124,19 +146,22 @@ html ul.topnav li ul.subnav li a
     clear:both;
 }
 
-.commentbody {
+.commentbody 
+{
         width: 90%;
         align: right;
         background-color: #C4BBD0;
-    }
-h1 {
+}
+h1 
+{
     margin:0px;
     font: 100px Arial,sans-serif;
-    }
+}
 
-article {
+article 
+{
         background-color: #7F629C; 
-    }
+}
 
 .artinfo, .postinfo
 {
@@ -156,23 +181,28 @@ span.nonimage, span.nonpost
 }
 
 
-section.comment header{
+section.comment header
+{
     font-weight: bold;
 }
 
-label {
+label 
+{
     vertical-align: top;
 }
 
-figure {
+figure 
+{
     padding: 10px 10px 7px 10px;
     float: left;
 }
 
-figure + br {
+figure + br 
+{
     clear: both;
 }
 
-.artimage {
+.artimage 
+{
     width: 400px;
 }  

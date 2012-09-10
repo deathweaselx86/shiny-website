@@ -13,4 +13,5 @@ urlpatterns = patterns('artwork.views',
     url(r'upload/$',views.upload_artwork),
     url(r'add/$',views.upload_artwork),
     url(r'comments/(?P<pk>\d+)/$', views.get_comments),
+    url(r'comments/add/(?P<pk>\d+)/$', views.add_comment),
     url(r'comments/delete/(?P<pk>\d+)/$', views.delete_comment),)

@@ -1,19 +1,19 @@
 {% extends "generic_base.html" %}
 {% block content%}
-<script type="text/javascript" src="http://www.deathweasel.net/static/js/artwork.js"></script>
     <section class="art">
         <header>
-            <h2>Detailed view for {{object.title}}</h2>
+        <h2>Detailed view for {{object.title}}</h2>
         </header>
 
             <figure>
-                <img class="artimage" src="{{object.image.url}}"/>
+            <a href="{{object.image.url}}"><img class="artimage" src="{{object.image.url}}"/></a><br/>
+            <small>Click the image to see fullsize.</small>
             </figure>
         <section class="artinfo">
             <label>Title: </label> {{object.title}}<br/>
             <label>Artist: </label> {{object.artist}}<br/>
             <label>Medium: </label> {{object.medium}}<br/>
-            <label>Description: </label> {{object.desc}}<br/>
+            <label>Description: </label> {{object.desc|safe}}<br/>
             <label>Keywords: </label> 
             {% for keyword in object.keywords.all %}
                 {{ keyword }}&nbsp;
@@ -26,16 +26,25 @@
             <header>
             <h3>Comments for {{object.title}}</h3>
             </header>
-<!--            <a onclick="showAddComment()" href="#">Add comment</a>
-            <div class="addcomment">
-                <form>
+            <section class="addcomment">
+                <header>
+                <h4>Add a comment</h4>
+                </header>
+                <div name="{{ object.pk }}" id="pk"/>
+                    {{ comment_form.media }}
+                    <form id="commentform" action="/artwork/comments/add/{{ object.pk }}/" method="post" >
                     <formset>
-                            <label>Author: </label> {{comment.author}}<br/>
-                            <label>Title: </label> {{comment.title}}<bri/>
-                            <label>Body: </label> {{comment.body}}</br>
+                    {% csrf_token %}
+                    Title<br/>
+                    {{ comment_form.title }}<br/>
+                    Author<br/>
+                    {{ comment_form.author}}<br/>
+                    Comment Body<br/>
+                    {{ comment_form.body}}<br/>
+                    <input type="submit" name="Submit Comment"/><div class="error"></div>
                     </formset>
-                </form>
-            </div> --!>
+                </form>    
+            </section>
             <a class="artcomment" id={{object.id}} href="#">Show comments</a>
             <div id="comment"/>
         </section>

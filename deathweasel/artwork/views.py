@@ -145,10 +145,10 @@ def modify_artwork(request, **kwargs):
             # Hopefully this deletes the comments associated with the image as well.
             if modify_form.cleaned_data['delete_art']:
                 my_art.delete()
-                return HttpResponseRedirect("http://www.deathweasel.com/artwork/")
+                return HttpResponseRedirect("http://www.deathweasel.net/artwork/")
             else:
                 modify_form.save()
-                return HttpResponseRedirect("http://www.deathweasel.com/artwork/%s/" % (pk,))
+                return HttpResponseRedirect("http://www.deathweasel.net/artwork/%s/" % (pk,))
         else:
             # Recycle the form.
             return render_to_response("artwork/modify.html",
@@ -157,6 +157,7 @@ def modify_artwork(request, **kwargs):
                                      context_instance=RequestContext(request))
 
 # The rest of this crap is primitive ajax.
+# Replace ALL OF THIS with dajax/dajaxice!
 def delete_comment(request, **kwargs):
     """
         This function selectively deletes a comment based on the comment
@@ -166,7 +167,7 @@ def delete_comment(request, **kwargs):
     comment = CommentModel.objects.get(id=pk)
     comment.delete()
     # Whatever. I'm not going to do anything with this output.
-    return HttpResponseRedirect("artwork/" % locals())
+    return HttpResponseRedirect("/artwork/")
 
 
 def get_comments(request, **kwargs):
@@ -179,3 +180,16 @@ def get_comments(request, **kwargs):
     return render_to_response("artwork/comments.html",
                                {"comments": these_comments})
 
+def add_comment(request, **kwargs):
+    """
+        This function is used to submit a comment from the detailed
+        artwork page.
+    """
+    pk = kwargs['pk']
+    form = CommentForm(request.POST)
+    if form.is_valid():
+        my_art = ArtworkModel.objects.get(id=pk)
+        new_comment = form.save(commit=False)
+        new_comment.artwork = my_art
+        new_comment.save()
+    return HttpResponseRedirect("/artwork/")

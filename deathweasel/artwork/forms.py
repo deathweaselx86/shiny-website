@@ -41,9 +41,10 @@ class ArtworkForm(forms.ModelForm):
             widget=forms.Textarea(attrs={"cols":30, "rows":15}))
    
     class Media:
-        js = (
-               'http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js', 
-               'http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/additional-methods.min.js')
+         js = (
+                 'http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js', 
+                 'http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/additional-methods.min.js',
+                 'http://www.deathweasel.net/static/js/artwork.js')     
 
 
 class ModifyForm(ArtworkForm):
@@ -51,12 +52,19 @@ class ModifyForm(ArtworkForm):
     image = forms.ImageField(widget=ModifyImageInput, required=False)
     desc = forms.CharField(max_length=500,
             widget=forms.Textarea(attrs={"cols":30, "rows":15}))
+    class Media:
+         js = (
+                 'http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js', 
+                 'http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/additional-methods.min.js',
+                 'http://www.deathweasel.net/static/js/artwork.js')     
+
 
 class CommentForm(forms.ModelForm):
     class Meta:
         model=CommentModel
-        exclude = ('date', 'artwork')
+        exclude = ('date')
     class Media:
          js = (
-               'http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js', 
-               'http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/additional-methods.min.js')
+                 'http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js', 
+                 'http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/additional-methods.min.js',
+                 'http://www.deathweasel.net/static/js/artwork.js')
