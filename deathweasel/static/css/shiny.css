@@ -19,12 +19,12 @@ aside, details, figcaption, figure, footer, header, hgroup, nav, section
 
 #header
 {
-    background-image:url('http://deathweasel.net/static/artwork/acrylics/dragon.jpg');
+    /* background-image:url('http://deathweasel.net/static/artwork/acrylics/dragon.jpg'); */
 }
 #header, #navbar, #middle, #footer
 {
     margin: 0 auto;
-    width: 800px;
+    width: 1000px;
     clear: both;
 }
 
@@ -139,7 +139,7 @@ html ul.topnav li ul.subnav li a
 {
     float: left;
     padding-left: 20px;
-    width: 560px;
+    width: 70%;
 }
 .clear 
 {
@@ -204,5 +204,5 @@ figure + br
 
 .artimage 
 {
-    width: 400px;
+    width: 550px;
 }  
