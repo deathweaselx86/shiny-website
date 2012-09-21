@@ -41,12 +41,13 @@
                     {{ comment_form.author}}<br/>
                     Comment Body<br/>
                     {{ comment_form.body}}<br/>
+                    {{ comment_form.artwork}}<br/>
                     <input type="submit" name="Submit Comment"/><div class="error"></div>
                     </formset>
                 </form>    
             </section>
             <a class="artcomment" id={{object.id}} href="#">Show comments</a>
-            <div id="comment"/>
+            <div id="comments"/>
         </section>
     </section>
 {% endblock %}

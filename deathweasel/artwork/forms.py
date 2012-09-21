@@ -60,6 +60,9 @@ class ModifyForm(ArtworkForm):
 
 
 class CommentForm(forms.ModelForm):
+    # TODO: Find some way of limiting the queryset for this.
+    artwork = forms.ModelChoiceField(widget=forms.HiddenInput, queryset=ArtworkModel.objects.all())
+    body = forms.CharField(widget=forms.Textarea)
     class Meta:
         model=CommentModel
         exclude = ('date')

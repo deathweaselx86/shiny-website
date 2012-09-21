@@ -1,17 +1,17 @@
 $(document).ready(function() {
     $('a.artcomment').click(
-        function() {
-         var id = $(this).attr('id');
+        function(event) {
+        event.preventDefault();
+        var id = $(this).attr('id');
          var link = "/artwork/comments/" + id;
-         var element = 'a#'+id+' div';
-
+         var element = "div#comments";
         $(element).empty(); 
          $.ajax({
             url: link,
          }).done(function(html){
              $(element).append(html);
                 });
-        $('a#'+id).hide();
+        $('a.artcomment').hide();
              }
 
         );
@@ -21,7 +21,8 @@ $(document).ready(function() {
 // Kind of broken right now.
 $(document).ready(function() {
     $("a.artmodifycomment").click(
-        function() {
+        function(event) {
+         event.preventDefault();
          var key = $(this).attr('id');
          var link = "/artwork/comments/deletable/" + key;
          var element = 'a.artmodifycomment+'+ 'div';
@@ -49,7 +50,9 @@ $(document).ready(function(){
                       formValues,
                       function()
                       {
-                          $("section.addcomment").hide();
+                          $("section.addcomment").empty();
+                          $("section.addcomment").attr("<h2>Thanks!</h2>");
+                          $("section.addcomment").hide('fast');
                       });
         }
     });

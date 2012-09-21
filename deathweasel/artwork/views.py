@@ -34,11 +34,16 @@ class ArtModelView(DetailView):
     model = ArtworkModel
 
     def get_context_data(self, **kwargs):
-        context = {}
-        context['comment_form'] = CommentForm()
-        context.update(kwargs)
-        return super(ArtModelView, self).get_context_data(**context)
-
+        """
+            We're overriding this method so we can make comments on the
+            artwork pages.
+        """
+        context = super(ArtModelView, self).get_context_data(**kwargs)
+        pk = context['object'].pk
+        artwork_model = ArtworkModel.objects.get(id=pk)
+        context['comment_form'] = CommentForm(initial={'artwork': artwork_model})
+        return context
+    
 def view_art_by_medium(request, **kwargs):
     """
         This view allows you to view artwork based on medium.
@@ -188,8 +193,5 @@ def add_comment(request, **kwargs):
     pk = kwargs['pk']
     form = CommentForm(request.POST)
     if form.is_valid():
-        my_art = ArtworkModel.objects.get(id=pk)
-        new_comment = form.save(commit=False)
-        new_comment.artwork = my_art
-        new_comment.save()
+        new_comment = form.save()
     return HttpResponseRedirect("/artwork/")
