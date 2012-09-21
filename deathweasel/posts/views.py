@@ -34,6 +34,17 @@ class PostModelView(DetailView):
     template_name = "posts/postmodel_detail.html"
     model = PostModel
 
+    def get_context_data(self, **kwargs):
+        """
+            We're overriding this method so we can make comments on the
+            post pages.
+        """
+        context = super(PostModelView, self).get_context_data(**kwargs)
+        pk = context['object'].pk
+        post_model = PostModel.objects.get(id=pk)
+        context['comment_form'] = CommentForm(initial={'post': post_model})
+        return context
+ 
 """
     These next few methods have something to do with post management.
 
@@ -105,4 +116,23 @@ def modify_post(request, **kwargs):
                                         "errors": post_form.errors},
                                       context_instance=RequestContext(request))
 
+# primitive ajax - replace this with something else
+def get_comments(request, **kwargs):
+    """
+        This function retrieves the comment associated with the artwork pk.
+    """
+    
+    pk = kwargs["pk"]   
+    these_comments = CommentModel.objects.filter(post=pk)
+    return render_to_response("posts/comments.html",
+                               {"comments": these_comments})
 
+def add_comment(request, **kwargs):
+    """
+        This function is used to submit a comment from the detailed post page.
+    """
+    pk = kwargs['pk']
+    form = CommentForm(request.POST)
+    if form.is_valid():
+        new_comment = form.save()
+    return HttpResponseRedirect("/posts/")

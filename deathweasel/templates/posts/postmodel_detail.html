@@ -15,5 +15,33 @@
             {% endfor %}
         </div>
     </section>
+    <section>
+        <header>
+        <h3>Comments for {{object.title}}</h3>
+        </header>
+        <section class="addcomment">
+            <header>
+            <h4>Add a comment</h4>
+            </header>
+            <div name="{{ object.pk }}" id="pk"/>
+                {{ comment_form.media }}
+                <form id="commentform" action="/posts/comments/add/{{ object.pk }}/" method="post" >
+                <formset>
+                {% csrf_token %}
+                Title<br/>
+                {{ comment_form.title }}<br/>
+                Author<br/>
+                {{ comment_form.author}}<br/>
+                Comment Body<br/>
+                {{ comment_form.body}}<br/>
+                {{ comment_form.post}}<br/>
+                <input type="submit" name="Submit Comment"/><div class="error"></div>
+                </formset>
+            </form>    
+        </section>
+        <a class="postcomment" id={{object.id}} href="#">Show comments</a>
+        <div id="comments"/>
+    </section>
+</section>
 {% endblock %}
 

@@ -16,6 +16,8 @@ urlpatterns = patterns('posts.views',
     url(r'^(?P<pk>\d+)/$', views.PostModelView.as_view(model=PostModel)), 
     # This leads to the page that allows an artist to modify or delete their artwork.
     url(r'modify/(?P<pk>\d+)/$', views.modify_post),
+    url(r'comments/(?P<pk>\d+)/$', views.get_comments),
+    url(r'comments/add/(?P<pk>\d+)/$', views.add_comment),
     url(r'add/$',views.add_post))
 
 
