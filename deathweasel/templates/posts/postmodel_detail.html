@@ -28,11 +28,11 @@
                 <form id="commentform" action="/posts/comments/add/{{ object.pk }}/" method="post" >
                 <formset>
                 {% csrf_token %}
-                Title<br/>
+                <img src="http://www.deathweasel.net/static/images/icons/08-chat.png"/> Title<br/>
                 {{ comment_form.title }}<br/>
-                Author<br/>
+                <img src="http://www.deathweasel.net/static/images/icons/123-id-card.png"/> Author<br/>
                 {{ comment_form.author}}<br/>
-                Comment Body<br/>
+                <img src="http://www.deathweasel.net/static/images/icons/179-notepad.png"/> Comment Body<br/>
                 {{ comment_form.body}}<br/>
                 {{ comment_form.post}}<br/>
                 <input type="submit" name="Submit Comment"/><div class="error"></div>
