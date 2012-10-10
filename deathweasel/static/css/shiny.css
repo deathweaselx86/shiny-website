@@ -1,7 +1,7 @@
 /* TODO: Organize this. */
 body   
 {
-    color: #40314E;
+    color: #785e96;
     font-family: Helvetica, Arial, sans-serif;
     font-size: 1.2 em;
 }
@@ -69,12 +69,12 @@ ul.topnav li a
     display: block;
     float: left;
     text-decoration: none;
-    color: #C4BBD0;
+    color: #c6bad3;
 }
 
 ul.topnav li a:hover 
 {
-    color: #59456D;
+    color: #59456D; 
 }
 
 ul.topnav li span 
@@ -116,14 +116,14 @@ html ul.topnav li ul.subnav li a
 
 #middle
 {
-    background-color: #7F629C; 
+    background-color: #927bac; 
 }
 
 #sidebar
 {
     float: left;
     width: 180px;
-    background-color: #9D8DB5; 
+    background-color: #D5CCDF; 
     margin: 10px;
     padding: 5px;
     list-style: none;
@@ -149,8 +149,9 @@ html ul.topnav li ul.subnav li a
 .commentbody 
 {
         width: 90%;
+        height: 100px;
         align: right;
-        background-color: #C4BBD0;
+        background-color: #c6bad3;
 }
 h1 
 {
@@ -160,18 +161,19 @@ h1
 
 article 
 {
-        background-color: #7F629C; 
+        color: #785e96;
+        background-color: #927bac;
 }
 
 .artinfo, .postinfo
 {
-    background-color: #9D8DB5;
+    background-color: #D5CCDF;
     padding: 10px;    
 }
 
 .art, .post
 {
-    background-color: #B2A1C4;
+    background-color: #d5ccdf;
     padding: 10px;
     margin: 10px;
 }
@@ -202,6 +204,14 @@ figure + br
     clear: both;
 }
 
+textarea
+{
+    overflow: auto;
+}
+textarea#id_body
+{
+    width: 80%;
+}
 .artimage 
 {
     width: 550px;
