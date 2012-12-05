@@ -4,7 +4,7 @@
 
 from django.db import models
 from django.contrib.auth.models import User
-from artwork.models import KeywordModel
+from artwork.models import KeywordModel, BaseCommentModel
 
 # Create your models here.
 
@@ -29,13 +29,9 @@ class PostModel(models.Model):
     def get_absolute_url(self):
         return "/posts/%s/" % self.id
 
-class CommentModel(models.Model):
-    title = models.CharField(max_length=250, help_text="Maximum size is 250 characters.")
-    author = models.CharField(max_length=50, help_text="Maximum size is 50 characters. This should be plenty.")
-    date = models.DateTimeField(auto_now=True)
-    body = models.TextField(blank=False, max_length=500, help_text="Your comment goes here. Maximum length is 500 characters. Don't write a book.")
+class CommentModel(BaseCommentModel):
     post = models.ForeignKey(PostModel)
-    
-    class Meta:
-        verbose_name_plural = "Comments"
-        ordering = ['-date']
+    parent = models.OneToOneField("self", null=True)    
+   
+    class Meta(BaseCommentModel.Meta):
+        db_table = "posts_commentmodel"

@@ -87,10 +87,10 @@ class ArtworkModel(models.Model):
     artist = models.ForeignKey(User)
     image = models.ImageField(upload_to=getFilePath)
     desc = models.TextField(verbose_name="Description", max_length=500)
-    keywords = models.ManyToManyField('KeywordModel')
+    keywords = models.ManyToManyField("KeywordModel")
     
     class Meta:
-        ordering = ['title']
+        ordering = ["title"]
 
     def __unicode__(self):
         return '-'.join((self.title, self.artist.username, self.medium))
@@ -98,24 +98,34 @@ class ArtworkModel(models.Model):
     def get_absolute_url(self):
         return "/artwork/%s/" % self.id
 
-class CommentModel(models.Model):
+class BaseCommentModel(models.Model):
+    """
+        This object is the base object model.
+        It contains the base information for the models.
+    """
+    author = models.CharField(max_length=200, blank=False)
+    title = models.CharField(max_length=250)
+    body = models.TextField(blank=False)
+    date = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        abstract = True
+        ordering = ["-date"]
+
+class CommentModel(BaseCommentModel):
     """
         This class contains the information necessary to describe a comment
         that someone's left about a piece of artwork. 
     """
-    # There is an implicit id field here
-    author = models.CharField(max_length=200, blank=False)
-    title = models.CharField(max_length=250)
-    body = models.TextField(blank=False)
     artwork = models.ForeignKey(ArtworkModel)
-    date = models.DateTimeField(auto_now_add=True)
+    parent = models.OneToOneField("self", null=True)
 
     def __unicode__(self):
         return ' '.join((self.author, self.title, "on", self.title))
     
-    class Meta:
-        ordering = ['date']
-    
+    class Meta(BaseCommentModel.Meta):
+        db_table = "artwork_commentmodel"    
+        
 class KeywordModel(models.Model):
     """
         This class is here so we can search artwork on keywords.

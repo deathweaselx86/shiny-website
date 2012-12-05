@@ -65,7 +65,7 @@ class CommentForm(forms.ModelForm):
     body = forms.CharField(widget=forms.Textarea)
     class Meta:
         model=CommentModel
-        exclude = ('date')
+        exclude = ('date', 'parent')
     class Media:
          js = (
                  'http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js', 

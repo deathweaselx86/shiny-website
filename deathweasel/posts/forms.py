@@ -20,7 +20,7 @@ class CommentForm(forms.ModelForm):
 
     class Meta:
         model=CommentModel
-        exclude = ('date')
+        exclude = ("date", "parent")
     class Media:
         js = ('http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/additional-methods.min.js',\
                 'http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js')
