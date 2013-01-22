@@ -6,11 +6,6 @@ body
     font-size: 1.2 em;
 }
 
-h1, h2, h3, h4, h5 
-{ 
-    font-variant: small-caps; 
-}
-
 /* This is here for the consumption of certain browsers that do not support HTML5 */
 aside, details, figcaption, figure, footer, header, hgroup, nav, section 
 {
@@ -51,7 +46,7 @@ ul.topnav
     list-style: none;
     width: 100%;
     display: block;
-    background-color: #2D2237;
+    background-color: #765e96;
     float: left;
 }
 
@@ -116,14 +111,14 @@ html ul.topnav li ul.subnav li a
 
 #middle
 {
-    background-color: #927bac; 
+    background-color: #efecf3; 
 }
 
 #sidebar
 {
     float: left;
     width: 180px;
-    background-color: #D5CCDF; 
+    background-color: #efecf3; 
     margin: 10px;
     padding: 5px;
     list-style: none;
@@ -162,18 +157,18 @@ h1
 article 
 {
         color: #785e96;
-        background-color: #927bac;
+        background-color: #efecf3;
 }
 
 .artinfo, .postinfo
 {
-    background-color: #D5CCDF;
+    background-color: #efecf3;
     padding: 10px;    
 }
 
 .art, .post
 {
-    background-color: #d5ccdf;
+    background-color: #efecf3;
     padding: 10px;
     margin: 10px;
 }
