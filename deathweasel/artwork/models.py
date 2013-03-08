@@ -107,7 +107,8 @@ class BaseCommentModel(models.Model):
     title = models.CharField(max_length=250)
     body = models.TextField(blank=False)
     date = models.DateTimeField(auto_now_add=True)
-
+    parent = models.OneToOneField("self", null=True)
+    
     class Meta:
         abstract = True
         ordering = ["-date"]
@@ -118,7 +119,6 @@ class CommentModel(BaseCommentModel):
         that someone's left about a piece of artwork. 
     """
     artwork = models.ForeignKey(ArtworkModel)
-    parent = models.OneToOneField("self", null=True)
 
     def __unicode__(self):
         return ' '.join((self.author, self.title, "on", self.title))

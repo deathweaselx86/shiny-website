@@ -31,7 +31,6 @@ class PostModel(models.Model):
 
 class CommentModel(BaseCommentModel):
     post = models.ForeignKey(PostModel)
-    parent = models.OneToOneField("self", null=True)    
    
     class Meta(BaseCommentModel.Meta):
         db_table = "posts_commentmodel"

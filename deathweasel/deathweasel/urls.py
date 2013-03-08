@@ -1,10 +1,18 @@
 from django.conf.urls import patterns, include, url
-# Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 from django.views.generic.simple import redirect_to
-import posts.views
+from django.conf import settings
+
 import django.contrib.auth.views
+
+
+import posts.views
 import artwork.urls, posts.urls
+
+from dajaxice.core import dajaxice_autodiscover, dajaxice_config
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+
+dajaxice_autodiscover()
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -18,5 +26,8 @@ urlpatterns = patterns('',
     url(r'^logout_redirect/$', django.contrib.auth.views.logout_then_login, 
         {'login_url':'/login/'}),
     url(r'^password_change/$', django.contrib.auth.views.password_change, 
-        {'post_change_redirect':'/login/'})
+        {'post_change_redirect':'/login/'}),
+    url(dajaxice_config.dajaxice_url, include('dajaxice.urls')),
     )
+
+urlpatterns += staticfiles_urlpatterns()

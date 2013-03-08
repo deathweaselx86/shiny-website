@@ -1,0 +1,25 @@
+body
+{
+    font-size: 64px;
+}
+
+td
+{
+    border: 1px solid black;
+    width: 100px;
+    height: 100px;
+}
+tr, td, table
+{
+    border-collapse: collapse;
+}
+
+.noborder
+{
+    border: 0px solid white;
+    background: white;
+}
+div
+{
+    font-size: 20px;
+}

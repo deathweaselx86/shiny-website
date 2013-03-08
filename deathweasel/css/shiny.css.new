@@ -1,0 +1,208 @@
+/* TODO: Organize this. */
+body   
+{
+    color: #40314E;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 1.2 em;
+}
+
+h1, h2, h3, h4, h5 
+{ 
+    font-variant: small-caps; 
+}
+
+/* This is here for the consumption of certain browsers that do not support HTML5 */
+aside, details, figcaption, figure, footer, header, hgroup, nav, section 
+{
+    display: block; 
+}
+
+#header
+{
+    /* background-image:url('http://deathweasel.net/static/artwork/acrylics/dragon.jpg'); */
+}
+#header, #navbar, #middle, #footer
+{
+    margin: 0 auto;
+    width: 1000px;
+    clear: both;
+}
+
+#header h1, #footer h6
+{
+    margin: 0 0 0 10px;
+}
+
+.error 
+{
+    color: red;
+    font-size: 1 em;
+}
+
+.invalidinput
+{
+    border: medium solid red;
+}
+
+ul.topnav
+{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    width: 100%;
+    display: block;
+    background-color: #2D2237;
+    float: left;
+}
+
+ul.topnav li
+{
+    float: left;
+    margin: 0 10px 0 0;
+    padding: 0px 10px 0px 10px; 
+    position: relative;
+} 
+
+ul.topnav li a 
+{    
+    padding: 3px 3px;
+    display: block;
+    float: left;
+    text-decoration: none;
+    color: #C4BBD0;
+}
+
+ul.topnav li a:hover 
+{
+    color: #59456D;
+}
+
+ul.topnav li span 
+{
+    float: left;
+}
+
+ul.topnav li span.subhover 
+{
+    background-position: center bottom;
+    cursor: pointer;
+}
+ul.topnav li ul.subnav 
+{
+    list-style:none;
+    position: absolute;
+    left:0;
+    top: 35px;
+    margin: 0;
+    padding: 0;
+    display: none;
+    float: left;
+    border: 1px solid white;
+}
+
+ul.topnav li ul.subnav li
+{
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid #252525;
+    border-bottom: 1px solid #444;
+    clear: both;
+}
+
+html ul.topnav li ul.subnav li a
+{
+    padding-left:20 px;
+}
+
+#middle
+{
+    background-color: #7F629C; 
+}
+
+#sidebar
+{
+    float: left;
+    width: 180px;
+    background-color: #9D8DB5; 
+    margin: 10px;
+    padding: 5px;
+    list-style: none;
+    height: 100%;
+}
+
+#sidebar h2
+{
+    margin: 10px;
+}
+
+#main
+{
+    float: left;
+    padding-left: 20px;
+    width: 70%;
+}
+.clear 
+{
+    clear:both;
+}
+
+.commentbody 
+{
+        width: 90%;
+        align: right;
+        background-color: #C4BBD0;
+}
+h1 
+{
+    margin:0px;
+    font: 100px Arial,sans-serif;
+}
+
+article 
+{
+        background-color: #7F629C; 
+}
+
+.artinfo, .postinfo
+{
+    background-color: #9D8DB5;
+    padding: 10px;    
+}
+
+.art, .post
+{
+    background-color: #B2A1C4;
+    padding: 10px;
+    margin: 10px;
+}
+span.nonimage, span.nonpost
+{
+    float:left;
+}
+
+
+section.comment header
+{
+    font-weight: bold;
+}
+
+label 
+{
+    vertical-align: top;
+}
+
+figure 
+{
+    padding: 10px 10px 7px 10px;
+    float: left;
+}
+
+figure + br 
+{
+    clear: both;
+}
+
+.artimage 
+{
+    width: 400px;
+}  

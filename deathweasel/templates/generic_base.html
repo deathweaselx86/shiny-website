@@ -1,26 +1,31 @@
 <!DOCTYPE html>
+{% load dajaxice_templatetags %}
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
         <meta charset="utf-8"/>
         <!--[if IE] > 
         <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script> 
         <![endif]-->
+        {% load static %}
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
-        <script type="text/javascript" src="http://www.deathweasel.net/static/js/shiny.js"></script>
-        <link rel="stylesheet" href="http://www.deathweasel.net/static/css/shiny.css"/>
+        <script type="text/javascript" src="/static/js/shiny.js"></script>
+        {% dajaxice_js_import %}
+        <script type="text/javascript" src="{% static "/static/dajax/jquery.dajax.core.js" %}"></script>
+
+        <link rel="stylesheet" href="/static/css/shiny.css"/>
         <title> deathweasel.net</title>
 	</head>
     <body>
+    <div id="asdf" onclick="Dajaxice.artwork.test(Dajax.process)">Test dajax!</div>
     <header id="header">
         <h1>deathweasel.net</h1>
     </header>
     <nav id="navbar">
         <ul class="topnav">
             <li><a href="http://deathweasel.net">Home</a></li>
-            <li>
-            <a href="/artwork/">Artwork</a>
-            </li>
+            <li><a href="/artwork/">Artwork</a></li>
             <li><a href="/posts/">Posts</a></li>
+            <li><a href="https://github.com/deathweaselx86">Github</a></li>
         </ul>
     </nav>
     <section id="middle">

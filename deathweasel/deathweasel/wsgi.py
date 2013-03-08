@@ -26,4 +26,5 @@ _application = get_wsgi_application()
 
 def application(environ, start_response):
     environ['PATH_INFO'] = environ['SCRIPT_NAME'] + environ['PATH_INFO']
+    print environ
     return _application(environ, start_response)

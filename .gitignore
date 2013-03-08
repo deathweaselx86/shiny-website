@@ -1,6 +1,7 @@
-media/*
-
 *.py[co]
+
+#swap files, ffs
+*.swp
 
 # Packages
 *.egg
@@ -12,6 +13,10 @@ parts
 bin
 var
 sdist
+media
+dajax
+dajaxice
+stuff
 develop-eggs
 .installed.cfg
 
