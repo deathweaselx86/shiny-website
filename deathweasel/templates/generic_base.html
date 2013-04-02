@@ -22,9 +22,9 @@
     </header>
     <nav id="navbar">
         <ul class="topnav">
-            <li><a href="http://deathweasel.net">Home</a></li>
-            <li><a href="/artwork/">Artwork</a></li>
-            <li><a href="/posts/">Posts</a></li>
+            <li><a href="{% url top-page %}">Home</a></li> 
+             <li><a href="{% url top-artwork-page %}">Artwork</a></li>
+            <li><a href="{% url top-post-page %}">Posts</a></li> 
             <li><a href="https://github.com/deathweaselx86">Github</a></li>
         </ul>
     </nav>
@@ -48,7 +48,7 @@
             {% endblock %}
         </article>
         <footer id="footer">
-        <small> This page is &copy; copyright Jessica Ross 2012.</small>
+        <small> This page is &copy; copyright Jessica Ross 2012-2013.</small>
         </footer>
     </section>
     </body>

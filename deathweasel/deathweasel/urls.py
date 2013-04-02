@@ -16,7 +16,7 @@ dajaxice_autodiscover()
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^$', posts.views.PostListView.as_view(model=posts.views.PostModel)),
+    url(r'^$', posts.views.PostListView.as_view(model=posts.views.PostModel), name="top-page"),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^artwork/', include(artwork.urls)), 
     url(r'^posts/', include(posts.urls)),

@@ -10,7 +10,7 @@ from posts.models import PostModel
 urlpatterns = patterns('posts.views',
     # This leads to the page that say there's art here!
     # This also shows a paginated view of all artwork.
-    url(r'^$', views.PostListView.as_view(model=PostModel)), 
+    url(r'^$', views.PostListView.as_view(model=PostModel), name="top-post-page"),
     # This leads to the page that shows a particular piece of artwork and
     # comments associated with it. Well, not the comments, yet. 
     url(r'^(?P<pk>\d+)/$', views.PostModelView.as_view(model=PostModel)), 

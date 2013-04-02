@@ -12,7 +12,9 @@
     function addIds()
     {
         var tds = $("td[class!=noborder]");
+        console.log(tds);
         $("td[class!=noborder]").each(function() {
+            console.log(this.textContent.split("\n"));
             $(this).attr("id", this.textContent.split("\n")[0].trim());
         });
     }
@@ -21,18 +23,20 @@
     {
         //identify which thumbnail to show
         var thumb = "images/thumbnails/" + target.attr("id") + ".jpg";
-        //replace contents of div with it!
+        console.log(thumb);
         target.empty();
         target.append('<img src="'+thumb+'"/>');
     }
-
     function nothing(){console.log("nothing called");}
-
     function showPicture(e)
     {
         var target = $(e.target);
         var target_id = target.attr("id");
         var picture = "images/robots/" + target_id + ".jpg";
+        console.log(e.target);
+        console.log(target);
+        console.log(target_id);
+        console.log(picture);
         $("#dialog-message").empty();
         $("#dialog-message").append('<img src="'+picture+'"/>');
         $("#dialog-message").dialog(
@@ -48,7 +52,6 @@
                 buttons:
                     {
                         "Guessed it right?": function() {
-
 		            var targetCell = "td#" + target_id;	
 			    showThumbnail($(targetCell));
 			    console.log(targetCell);
@@ -73,413 +76,222 @@
 	});
     });
 </script>
-
 <h1>Periodic Table of Robots</h1>
 <div id="dialog-message" title="Guess the robot?">
 </div>
 <table>
 <tr>
-<td  >
-1
-<br>
-
+<td  >1<br>
     H
-
 </td>
 <td colspan="16" class="noborder">
 </td>
-<td   >
-2
-<br>
-
+<td   >2<br>
 He
-
 </td>
 </tr>
 <tr>
-<td   >
-3
-<br>
+<td   >3<br>
 Li
 </td>
-<td   >
-4
-<br>
+<td   >4<br>
 Be
 </td>
 <td rowspan="2" colspan="10" class="noborder">
 </td>
-<td   >
-5
-<br>
-B
-</td>
-<td   >
-6
-<br>
-C
-</td>
-<td   >
-7
-<br>
-
-N
-
-</td>
-<td   >
-8
-<br>
-
+<td   >5<br>B</td>
+<td   >6<br>C</td>
+<td   >7<br>N</td>
+<td   >8<br>
 O
-
 </td>
-<td   >
-9
-<br>
-
+<td   >9<br>
 F
-
 </td>
-<td   >
-10
-<br>
-
+<td   >10<br>
 Ne
-
 </td>
 </tr>
 <tr>
-<td   >
-11
-<br>
+<td   >11<br>
 Na
 </td>
-<td   >
-12
-<br>
+<td   >12<br>
 Mg
 </td>
-<td   >
-13
-<br>
+<td   >13<br>
 Al
 </td>
-<td   >
-14
-<br>
+<td   >14<br>
 Si
 </td>
-<td   >
-15
-<br>
-P
-</td>
-<td   >
-16
-<br>
-S
-</td>
-<td   >
-17
-<br>
-
+<td   >15<br>
+P</td>
+<td   >16<br>
+S</td>
+<td   >17<br>
 Cl
-
 </td>
-<td   >
-18
-<br>
-
+<td   >18<br>
 Ar
-
 </td>
 </tr>
 <tr>
-<td   >
-19
-<br>
-K
-</td>
-<td   >
-20
-<br>
+<td   >19<br>K</td>
+<td   >20<br>
 Ca
 </td>
-<td   >
-21
-<br>
+<td   >21<br>
 Sc
 </td>
-<td   >
-22
-<br>
+<td   >22<br>
 Ti
 </td>
-<td   >
-23
-<br>
-V
-</td>
-<td   >
-24
-<br>
+<td   >23<br>V</td>
+<td   >24<br>
 Cr
 </td>
-<td   >
-25
-<br>
+<td   >25<br>
 Mn
 </td>
-<td   >
-26
-<br>
+<td   >26<br>
 Fe
 </td>
-<td   >
-27
-<br>
+<td   >27<br>
 Co
 </td>
-<td   >
-28
-<br>
+<td   >28<br>
 Ni
 </td>
-<td   >
-29
-<br>
+<td   >29<br>
 Cu
 </td>
-<td   >
-30
-<br>
+<td   >30<br>
 Zn
 </td>
-<td   >
-31
-<br>
+<td   >31<br>
 Ga
 </td>
-<td   >
-32
-<br>
+<td   >32<br>
 Ge
 </td>
-<td   >
-33
-<br>
+<td   >33<br>
 As
 </td>
-<td   >
-34
-<br>
+<td   >34<br>
 Se
 </td>
-<td   >
-35
-<br>
-
+<td   >35<br>
 Br
-
 </td>
-<td   >
-36
-<br>
-
+<td   >36<br>
 Kr
-
 </td>
 </tr>
 <tr>
-<td   >
-37
-<br>
+<td   >37<br>
 Rb
 </td>
-<td   >
-38
-<br>
+<td   >38<br>
 Sr
 </td>
-<td   >
-39
-<br>
-Y
-</td>
-<td   >
-40
-<br>
+<td   >39<br>Y</td>
+<td   >40<br>
 Zr
 </td>
-<td   >
-41
-<br>
+<td   >41<br>
 Nb
 </td>
-<td   >
-42
-<br>
+<td   >42<br>
 Mo
 </td>
-<td   >
-43
-<br>
-
+<td   >43<br>
 Tc
-
 </td>
-<td   >
-44
-<br>
+<td   >44<br>
 Ru
 </td>
-<td   >
-45
-<br>
+<td   >45<br>
 Rh
 </td>
-<td   >
-46
-<br>
+<td   >46<br>
 Pd
 </td>
-<td   >
-47
-<br>
+<td   >47<br>
 Ag
 </td>
-<td   >
-48
-<br>
+<td   >48<br>
 Cd
 </td>
-<td   >
-49
-<br>
+<td   >49<br>
 In
 </td>
-<td   >
-50
-<br>
+<td   >50<br>
 Sn
 </td>
-<td   >
-51
-<br>
+<td   >51<br>
 Sb
 </td>
-<td   >
-52
-<br>
+<td   >52<br>
 Te
 </td>
-<td   >
-53
-<br>
-I
-</td>
-<td   >
-54
-<br>
-
+<td   >53<br>I</td>
+<td   >54<br>
 Xe
-
 </td>
 </tr>
 <tr>
-<td   >
-55
-<br>
-
+<td   >55<br>
 Cs
-
 </td>
-<td   >
-56
-<br>
+<td   >56<br>
 Ba
 </td>
 <td class="noborder" >
-
 <br>
-
 </td>
-<td   >
-72
-<br>
+<td   >72<br>
 Hf
 </td>
-<td   >
-73
-<br>
+<td   >73<br>
 Ta
 </td>
-<td   >
-74
-<br>
-W
-</td>
-<td   >
-75
-<br>
+<td   >74<br>W</td>
+<td   >75<br>
 Re
 </td>
-<td   >
-76
-<br>
+<td   >76<br>
 Os
 </td>
-<td   >
-77
-<br>
+<td   >77<br>
 Ir
 </td>
-<td   >
-78
-<br>
+<td   >78<br>
 Pt
 </td>
-<td   >
-79
-<br>
+<td   >79<br>
 Au
 </td>
-<td   >
-80
-<br>
+<td   >80<br>
 Hg
 </td>
-<td   >
-81
-<br>
+<td   >81<br>
 Tl
 </td>
-<td   >
-82
-<br>
+<td   >82<br>
 Pb
 </td>
-<td   >
-83
-<br>
+<td   >83<br>
 Bi
 </td>
-<td   >
-84
-<br>
+<td   >84<br>
 Po
 </td>
-<td   >
-85
-<br>
+<td   >85<br>
 At
 </td>
-<td   >
-86
-<br>
-
+<td   >86<br>
 Rn
-
 </td>
 </tr>
 </table>

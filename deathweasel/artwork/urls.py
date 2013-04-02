@@ -7,7 +7,7 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('artwork.views',
-    url(r'^$', views.ArtListView.as_view(model=views.ArtworkModel)), 
+    url(r'^$', views.ArtListView.as_view(model=views.ArtworkModel), name="top-artwork-page"), 
     url(r'^(?P<pk>\d+)/$', views.ArtModelView.as_view(model=views.ArtworkModel)), 
     url(r'modify/(?P<pk>\d+)/$', views.modify_artwork),
     url(r'upload/$',views.upload_artwork),

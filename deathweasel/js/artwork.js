@@ -1,3 +1,9 @@
+function submitForm()
+{
+        Dajaxice.artwork.add_comment(Dajax.process, {'form':$("commentform").serialize(true)});
+}
+
+
 function handleFile(event) {
     var fileInput = event.currentTarget.files;
     console.log(fileInput);
@@ -15,6 +21,7 @@ function handleFile(event) {
         $("#fileAttrs").text("Files interface is not supported by your browser.");
     }
 }
+
 // This is used to load comments on the artwork details
 // page.
 $(document).ready(function() {
@@ -64,8 +71,39 @@ $(document).ready(function() {
 // This is used to validate comments on the comment forms.
 // Hurray for jquery.validate
 $(document).ready(function(){
-    $("#id_image").change({'file':'fileHandle'}, handleFile);
+//   $("#id_image").change({'file':'fileHandle'}, handleFile);
 
+    var commentForm = $("#commentform")[0];
+    if (commentForm){
+        commentForm.validate({
+            submitHandler: 
+                function(form){
+                    var pk = $("div#pk").attr('name');
+                    var formValues = $(form).serialize();
+                    $.post("/artwork/comments/add/" + pk +"/",
+                          formValues,
+                          function()
+                          {
+                              $("section.addcomment").empty();
+                              $("section.addcomment").attr("<h2>Thanks!</h2>");
+                              $("section.addcomment").hide('fast');
+                          });
+            }
+        });
+        $("#id_title").rules("add", {
+            required: true,
+            maxlength: 250});
+        $("#id_author").rules("add", {
+            required: true,
+            maxlength: 200});
+        $("#id_body").rules("add", {
+            required: true,
+            maxlength: 500});
+    }
+});
+
+function validateCommentForm() {
+    //$("#id_image").change({'file':'fileHandle'}, handleFile);
     var commentForm = $("#commentform")[0];
     if (commentForm){
         commentForm.validate({

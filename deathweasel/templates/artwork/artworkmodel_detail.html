@@ -27,19 +27,20 @@
             <h3>Comments for {{object.title}}</h3>
             </header>
             <section class="addcomment">
+                <div id="commentstatus"></div>
                 <header>
                 <h4>Add a comment</h4>
                 </header>
                 <div name="{{ object.pk }}" id="pk"/>
                     {{ comment_form.media }}
-                    <form id="commentform" action="/artwork/comments/add/{{ object.pk }}/" method="post" >
+                    <form id="commentform" action="" method="post" >
                     <formset>
                     {% csrf_token %}
                     {{ comment_form.title }}<br/>
                     {{ comment_form.author}}<br/>
                     {{ comment_form.body}}<br/>
                     {{ comment_form.artwork}}<br/>
-                    <input type="submit" name="Submit Comment"/><div class="error"></div>
+                    <input type="submit" onclick="submitForm();" name="Submit Comment"/>
                     </formset>
                 </form>    
             </section>
