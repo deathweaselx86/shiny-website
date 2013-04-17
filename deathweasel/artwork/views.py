@@ -185,14 +185,3 @@ def get_comments(request, **kwargs):
     return render_to_response("artwork/comments.html",
                                {"comments": these_comments})
 
- 
-def add_comment(request, **kwargs):
-    """
-        This function is used to submit a comment from the detailed
-        artwork page.
-    """
-    pk = kwargs['pk']
-    form = CommentForm(request.POST)
-    if form.is_valid():
-        new_comment = form.save()
-    return HttpResponseRedirect("/artwork/")

@@ -1,6 +1,7 @@
 {% extends "generic_base.html" %}
 {% block content%}
-<script type="text/javascript" src="http://www.deathweasel.net/static/js/posts.js"></script>
+{% load static %}
+<script type="text/javascript" src="{% static 'js/posts.js' %}"></script>
 <section class="post">
     <header>
         <h2>{{object.title}}</h2>
@@ -20,16 +21,16 @@
         <h3>Comments for {{object.title}}</h3>
         </header>
         <section class="addcomment">
-            <header>
-            <h4>Add a comment</h4>
-            </header>
+            <div id="commentstatus"></div>
+            Leave a comment?
             <div name="{{ object.pk }}" id="pk"/>
                 {{ comment_form.media }}
                 <form id="commentform" action="/posts/comments/add/{{ object.pk }}/" method="post" >
                 <formset>
                 {% csrf_token %}
-                {{ comment_form.title }}<br/>
-                {{ comment_form.author}}<br/>
+                Title: {{ comment_form.title }}<br/>
+                Author: {{ comment_form.author}}<br/>
+                Comment Body:<br/>
                 {{ comment_form.body}}<br/>
                 {{ comment_form.post}}<br/>
                 <input type="submit" name="Submit Comment"/><div class="error"></div>

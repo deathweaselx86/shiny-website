@@ -100,8 +100,7 @@ class ArtworkModel(models.Model):
 
 class BaseCommentModel(models.Model):
     """
-        This object is the base object model.
-        It contains the base information for the models.
+        This object is the base comment model.
     """
     author = models.CharField(max_length=200, blank=False)
     title = models.CharField(max_length=250)

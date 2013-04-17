@@ -16,6 +16,7 @@ $(document).ready(function() {
         );
     });
 
+/*
 $(document).ready(function(){
 
     $("#commentform").validate({
@@ -43,4 +44,4 @@ $(document).ready(function(){
         required: true,
         maxlength: 500});
 });
-
+*/

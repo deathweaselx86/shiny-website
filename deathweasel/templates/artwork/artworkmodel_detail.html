@@ -36,11 +36,12 @@
                     <form id="commentform" action="" method="post" >
                     <formset>
                     {% csrf_token %}
-                    {{ comment_form.title }}<br/>
-                    {{ comment_form.author}}<br/>
+                    Title: {{ comment_form.title }}<br/>
+                    Author: {{ comment_form.author}}<br/>
+                    Comment Body:<br/>
                     {{ comment_form.body}}<br/>
                     {{ comment_form.artwork}}<br/>
-                    <input type="submit" onclick="submitForm();" name="Submit Comment"/>
+                    <input type="button" onclick="submitForm();" value="Submit Comment"/>
                     </formset>
                 </form>    
             </section>

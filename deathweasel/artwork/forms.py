@@ -44,7 +44,7 @@ class ArtworkForm(forms.ModelForm):
          js = (
                  'http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js', 
                  'http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/additional-methods.min.js',
-                 'http://www.deathweasel.net/static/js/artwork.js')     
+                 '/static/js/artwork.js')     
 
 
 class ModifyForm(ArtworkForm):
@@ -56,7 +56,7 @@ class ModifyForm(ArtworkForm):
          js = (
                  'http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js', 
                  'http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/additional-methods.min.js',
-                 'http://www.deathweasel.net/static/js/artwork.js')     
+                 '/static/js/artwork.js')     
 
 
 class CommentForm(forms.ModelForm):
@@ -70,4 +70,4 @@ class CommentForm(forms.ModelForm):
          js = (
                  'http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js', 
                  'http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/additional-methods.min.js',
-                 'http://www.deathweasel.net/static/js/artwork.js')
+                 '/static/js/artwork.js')

@@ -3,7 +3,7 @@ body
 {
     color: #785e96;
     font-family: Helvetica, Arial, sans-serif;
-    font-size: 1.2 em;
+    font-size: 1.2em;
 }
 
 /* This is here for the consumption of certain browsers that do not support HTML5 */
@@ -163,7 +163,6 @@ article
 .artinfo, .postinfo
 {
     background-color: #efecf3;
-    padding: 10px;    
 }
 
 .art, .post
@@ -210,4 +209,9 @@ textarea#id_body
 .artimage 
 {
     width: 550px;
-}  
+}
+
+h2 > a
+{
+    text-decoration: none;
+}
