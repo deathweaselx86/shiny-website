@@ -13,23 +13,19 @@ function commentStatus(status_msg)
 
 // This is used to load comments on the artwork details
 // page.
-$(document).ready(function() {
-    var artCommentLink = $("a.artcomment")[0];
-    if (artCommentLink) {    
-        $('a.artcomment').click(
-            function(event) {
-            event.preventDefault();
-            var id = $(this).attr('id');
-             var link = "/artwork/comments/" + id;
-             var element = "div#comments";
-            $(element).empty(); 
-             $.ajax({
-                url: link,
-             }).done(function(html){
-                 $(element).append(html);
-                    });
-            $('a.artcomment').hide();
-            });}
-});
+
+
+function showComments()
+{
+    var button = $("button#showcomments");
+    var id = $("#id_artwork").attr("value");
+    var link = "/artwork/comments/" + id;
+    var element = "section#comments";
+    $(element).empty(); 
+    $.ajax({url: link,}).done(
+            function(html){
+                $(element).append(html);});
+    button.hide();
+}
 
 

@@ -2,13 +2,13 @@
 {% block content%}
     <section class="art">
         <header>
-        <h2>Detailed view for {{object.title}}</h2>
+        <h2>{{object.title}}</h2>
         </header>
 
-            <figure>
-            <a href="{{object.image.url}}"><img class="artimage" src="{{object.image.url}}"/></a><br/>
-            <small>Click the image to see fullsize.</small>
-            </figure>
+        <figure>
+        <a href="{{object.image.url}}"><img class="artimage" src="{{object.image.url}}"/></a><br/>
+        <small>Click the image to see fullsize.</small>
+        </figure>
         <section class="artinfo">
             <label>Title: </label> {{object.title}}<br/>
             <label>Artist: </label> {{object.artist}}<br/>
@@ -19,8 +19,6 @@
                 {{ keyword }}&nbsp;
             {% endfor %}
             <br/>
-
-            <br/>    
         </section>
         <section>
             <header>
@@ -28,12 +26,13 @@
             </header>
             <section class="addcomment">
                 <div id="commentstatus"></div>
+                <button id="showcomments">Show Comments</button>
+                <section id="comments"/>
                 <header>
                 <h4>Add a comment</h4>
                 </header>
-                <div name="{{ object.pk }}" id="pk"/>
                     {{ comment_form.media }}
-                    <form id="commentform" action="" method="post" >
+                    <form id="commentform" action="" method="post">
                     <formset>
                     {% csrf_token %}
                     Title: {{ comment_form.title }}<br/>
@@ -41,12 +40,10 @@
                     Comment Body:<br/>
                     {{ comment_form.body}}<br/>
                     {{ comment_form.artwork}}<br/>
-                    <input type="button" onclick="submitForm();" value="Submit Comment"/>
+                    <button id="commentsubmit">Submit Comment</button>
                     </formset>
                 </form>    
             </section>
-            <a class="artcomment" id={{object.id}} href="#">Show comments</a>
-            <div id="comments"/>
         </section>
     </section>
 {% endblock %}
