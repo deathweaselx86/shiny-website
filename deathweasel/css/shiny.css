@@ -19,7 +19,7 @@ aside, details, figcaption, figure, footer, header, hgroup, nav, section
 #header, #navbar, #middle, #footer
 {
     margin: 0 auto;
-    width: 1000px;
+    width: 80%;
     clear: both;
 }
 
