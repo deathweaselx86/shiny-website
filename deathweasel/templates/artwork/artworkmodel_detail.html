@@ -6,7 +6,10 @@
         </header>
 
         <figure>
-        <a href="{{object.image.url}}"><img class="artimage" src="{{object.image.url}}"/></a><br/>
+        <a href="{{object.image.url}}" id="smallimagelink">
+            <img class="artimage" src="{{object.image.url}}"/>
+        </a>
+        <br/>
         <small>Click the image to see fullsize.</small>
         </figure>
         <section class="artinfo">
@@ -20,14 +23,16 @@
             {% endfor %}
             <br/>
         </section>
+        <section id="imagemodal"></section>
         <section>
             <header>
             <h3>Comments for {{object.title}}</h3>
             </header>
             <section class="addcomment">
-                <div id="commentstatus"></div>
+                <section id="commentstatus"></section>
                 <button id="showcomments">Show Comments</button>
-                <section id="comments"/>
+                <section id="comments">
+                </section>
                 <header>
                 <h4>Add a comment</h4>
                 </header>
