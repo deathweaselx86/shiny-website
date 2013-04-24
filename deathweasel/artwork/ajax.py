@@ -24,7 +24,6 @@ def add_comment(request, form):
     else:
         # Add more information here....
         dajax.add_data("Something went wrong with adding the comment.", "commentStatus")
-    dajax.script("showComments();"); 
     return dajax.json()
 
 # This is absolutely horrible. I need to figure out how to return x comments rather than 
