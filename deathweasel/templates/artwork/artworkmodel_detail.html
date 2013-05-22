@@ -1,16 +1,14 @@
 {% extends "generic_base.html" %}
 {% block content%}
     <section class="art">
-        <header>
-        <h2>{{object.title}}</h2>
-        </header>
-
+        <header>{{object.title}}<header>
+            <br/>
         <figure>
         <a href="{{object.image.url}}" id="smallimagelink">
             <img class="artimage" src="{{object.image.url}}"/>
         </a>
         <br/>
-        <small>Click the image to see fullsize.</small>
+        <figcaption>Click the image to see fullsize.</figcaption>
         </figure>
         <section class="artinfo">
             <label>Title: </label> {{object.title}}<br/>
@@ -25,17 +23,13 @@
         </section>
         <section id="imagemodal"></section>
         <section>
-            <header>
-            <h3>Comments for {{object.title}}</h3>
-            </header>
+            Comments for {{object.title}}<br/>
             <section class="addcomment">
                 <section id="commentstatus"></section>
                 <button id="showcomments">Show Comments</button>
                 <section id="comments">
                 </section>
-                <header>
-                <h4>Add a comment</h4>
-                </header>
+                    Add a comment<br/>
                     {{ comment_form.media }}
                     <form id="commentform" action="" method="post">
                     <formset>

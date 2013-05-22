@@ -16,11 +16,11 @@ $(document).ready(function() {
     $('button#showcomments').click(
         function(event) {
             event.preventDefault();
-            showComments();
+            showArtComments();
         });
     $("button#commentsubmit").click( 
         function(event){ 
-            event.preventDefault(); submitForm(); showComments();
+            event.preventDefault(); submitForm(); showArtComments();
         } );
 
     $("a#smallimagelink").click(
@@ -37,17 +37,9 @@ $(document).ready(function() {
 
 });
 
-function showComments()
+function showArtComments()
 {
-    var button = $("button#showcomments");
-    var id = $("#id_artwork").attr("value");
-    var link = "/artwork/comments/" + id;
-    var element = "section#comments";
-    $(element).empty();
-    $.ajax({url: link,}).done(
-            function(html){
-                $(element).append(html);});
-    button.hide();
+    showComments("artwork");
 }
 
 

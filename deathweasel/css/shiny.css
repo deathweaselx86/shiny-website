@@ -12,6 +12,15 @@ aside, details, figcaption, figure, footer, header, hgroup, nav, section
     display: block; 
 }
 
+section
+{
+    margin: 1em 1em .5em .5em;
+}
+
+section.art, section.post
+{
+
+}
 #header
 {
     /* background-image:url('http://deathweasel.net/static/artwork/acrylics/dragon.jpg'); */
@@ -177,7 +186,7 @@ span.nonimage, span.nonpost
 }
 
 
-section.comment header
+header
 {
     font-weight: bold;
 }
@@ -187,10 +196,9 @@ label
     vertical-align: top;
 }
 
-figure 
+figure, .artinfo
 {
     padding: 10px 10px 7px 10px;
-    float: left;
 }
 
 figure + br 

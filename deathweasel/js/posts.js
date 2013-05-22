@@ -14,21 +14,14 @@ $(document).ready(function() {
     $('button#showcomments').click(
         function(event) {
             event.preventDefault();
-            showComments();
+            showPostComments();
         });
-    $("button#commentsubmit").click( function(event){ event.preventDefault(); submitForm(); showComments();} );
+    $("button#commentsubmit").click( function(event){ event.preventDefault(); submitForm(); showPostComments();} );
 });
 
-function showComments()
+
+function showPostComments()
 {
-    var button = $("button#showcomments");
-    var id = $("#id_post").attr("value");
-    var link = "/posts/comments/" + id;
-    var element = "section#comments";
-    $(element).empty(); 
-    $.ajax({url: link,}).done(
-            function(html){
-                $(element).append(html);});
-    button.hide();
+    showComments("posts");
 }
 

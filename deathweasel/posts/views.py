@@ -29,6 +29,7 @@ from django.contrib.auth.decorators import login_required
 class PostListView(ListView):
     template_name = "posts/postmodel_list.html"
     model = PostModel
+    queryset = PostModel.objects.filter(viewable=True).order_by("-date")
 
 class PostModelView(DetailView):
     template_name = "posts/postmodel_detail.html"
@@ -42,7 +43,8 @@ class PostModelView(DetailView):
         context = super(PostModelView, self).get_context_data(**kwargs)
         pk = context['object'].pk
         post_model = PostModel.objects.get(id=pk)
-        context['comment_form'] = CommentForm(initial={'post': post_model})
+        if post_model.allow_comments:
+            context['comment_form'] = CommentForm(initial={'post': post_model})
         return context
  
 """

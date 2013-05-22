@@ -15,32 +15,37 @@
         {% endfor %}
         <br/>    
     </section>
+    
     <section>
+        {% if comment_form %}
         <header>
         <h3>Comments for {{object.title}}</h3>
         </header>
         <section class="addcomment">
             <section id="commentstatus"></section>
             <button id="showcomments">Show Comments</button>
-            <section id="comments">
-            </section>
+            <section id="comments"></section>
             <header>
-            <h4>Leave a comment?</h4>
+                <h4>Leave a comment?</h4>
             </header>
-                {{ comment_form.media }}
-                <form id="commentform" method="post">
+            {{ comment_form.media }}
+            <form id="commentform" method="post">
                 <formset>
-                {% csrf_token %}
-                Title: {{ comment_form.title }}<br/>
-                Author: {{ comment_form.author}}<br/>
-                Comment Body:<br/>
-                {{ comment_form.body}}<br/>
-                {{ comment_form.post}}<br/>
-                <button id="commentsubmit">Submit Comment</button>
+                    {% csrf_token %}
+                    Title: {{ comment_form.title }}<br/>
+                    Author: {{ comment_form.author}}<br/>
+                    Comment Body:<br/>
+                    {{ comment_form.body}}<br/>
+                    {{ comment_form.post}}<br/>
+                    <button id="commentsubmit">Submit Comment</button>
                 </formset>
-            </form>    
+            </form>
         </section>
+        {% else %}
+        Comments have been disabled on this post.<br/>
+        {% endif %}
     </section>
+    
 </section>
 {% endblock %}
 

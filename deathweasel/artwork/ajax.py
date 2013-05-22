@@ -21,13 +21,13 @@ def add_comment(request, form):
     
     if new_comment:
         dajax.add_data("Comment is successfully added!", "commentStatus")
+        comment_json = serializers.serialize('json', new_comment)
+        djax.add_data(comment_json, 'addNewComment') 
     else:
         # Add more information here....
         dajax.add_data("Something went wrong with adding the comment.", "commentStatus")
     return dajax.json()
-
-# This is absolutely horrible. I need to figure out how to return x comments rather than 
-# all of them.
+    
 
 @dajaxice_register
 def get_comments(request, art_pk):
@@ -38,5 +38,7 @@ def get_comments(request, art_pk):
         dajax.add_data('No comments associated with this post.', 'commentStatus')
     else:
         comment_json = serializers.serialize('json', comments)
+        # Not implemented yet.
         dajax.add_data(comment_json, 'render_comments')
     return dajax.json()
+
