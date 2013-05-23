@@ -4,7 +4,7 @@
 
 from django.db import models
 from django.contrib.auth.models import User
-from artwork.models import KeywordModel, BaseCommentModel
+from core.models import BaseCommentModel,KeywordModel
 
 # Create your models here.
 

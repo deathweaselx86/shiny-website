@@ -5,6 +5,7 @@
 from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
+from core.models import BaseCommentModel, KeywordModel
 
 MEDIUMS = (('ink', 'ink'),
                ('graphite', 'graphite'),
@@ -97,20 +98,6 @@ class ArtworkModel(models.Model):
 
     def get_absolute_url(self):
         return "/artwork/%s/" % self.id
-
-class BaseCommentModel(models.Model):
-    """
-        This object is the base comment model.
-    """
-    author = models.CharField(max_length=200, blank=False)
-    title = models.CharField(max_length=250)
-    body = models.TextField(blank=False)
-    date = models.DateTimeField(auto_now_add=True)
-    parent = models.OneToOneField("self", null=True)
-    
-    class Meta:
-        abstract = True
-        ordering = ["-date"]
 
 class CommentModel(BaseCommentModel):
     """
