@@ -88,7 +88,7 @@ class ArtworkModel(models.Model):
     artist = models.ForeignKey(User)
     image = models.ImageField(upload_to=getFilePath)
     desc = models.TextField(verbose_name="Description", max_length=500)
-    keywords = models.ManyToManyField("KeywordModel")
+    keywords = models.ManyToManyField(KeywordModel)
     
     class Meta:
         ordering = ["title"]
@@ -111,14 +111,4 @@ class CommentModel(BaseCommentModel):
     
     class Meta(BaseCommentModel.Meta):
         db_table = "artwork_commentmodel"    
-        
-class KeywordModel(models.Model):
-    """
-        This class is here so we can search artwork on keywords.
-    """
-    keyword = models.CharField(max_length=200, blank=False)
-
-    def __unicode__(self):
-        return self.keyword
-
-    # Absolute url here should be a link to search on keyword
+    
