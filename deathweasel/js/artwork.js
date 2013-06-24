@@ -23,18 +23,6 @@ $(document).ready(function() {
             event.preventDefault(); submitForm(); showArtComments();
         } );
 
-    $("a#smallimagelink").click(
-        function(event){
-            event.preventDefault();
-            var imageElement = $(".artimage").clone().removeClass();
-            console.log(imageElement);
-            $("#imagemodel").append(imageElement);
-            console.log($("#imagemodal").append(imageElement));
-            $("#imagemodal").dialog({modal: true,
-                                    width: 1200,
-                                    height: 1200});
-        });
-
 });
 
 function showArtComments()

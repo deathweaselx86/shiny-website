@@ -4,7 +4,7 @@
         <header>{{object.title}}<header>
             <br/>
         <figure>
-        <a href="{{object.image.url}}" id="smallimagelink">
+        <a href="{{object.image.url}}" id="smallimagelink" rel="lightbox-art" title="{{object.desc|safe}}">
             <img class="artimage" src="{{object.image.url}}"/>
         </a>
         <br/>
@@ -21,7 +21,6 @@
             {% endfor %}
             <br/>
         </section>
-        <section id="imagemodal"></section>
         <section>
             Comments for {{object.title}}<br/>
             <section class="addcomment">

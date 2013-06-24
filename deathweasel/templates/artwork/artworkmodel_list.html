@@ -8,7 +8,7 @@
     <section class="art">
     {% for artwork in object_list %}
                 {% thumbnail artwork.image "100x100" crop="center" as im %}
-                <a href="/artwork/{{artwork.id}}"><img src="{{im.url}}" width="{{im.width}}" height="{{im.height}}"/></a>
+                <a href="\media\{{artwork.image}}" rel="lightbox-artwork" title="{{artwork.title}}"  ><img src="{{im.url}}" width="{{im.width}}" height="{{im.height}}"/></a>
                 {% endthumbnail %}
     {% empty %}
                 No artwork found. Come back later.
