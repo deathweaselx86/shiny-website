@@ -67,6 +67,7 @@ def view_art_by_medium(request, **kwargs):
         - a way to preview and upload artwork
 
 """
+
 @csrf_protect
 @login_required
 def upload_artwork(request):

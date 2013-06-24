@@ -6,10 +6,8 @@ This module enables the administration of artwork and comment objects in the
 Django admin interface.
 
 """
-from artwork.models import ArtworkModel, CommentModel
+from models import KeywordModel
 from django.db import models
 from django.contrib import admin
 
-    
-admin.site.register(CommentModel)
-admin.site.register(ArtworkModel)
+admin.site.register(KeywordModel)

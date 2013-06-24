@@ -5,6 +5,7 @@
 from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
+from core.models import BaseCommentModel, KeywordModel
 
 MEDIUMS = (('ink', 'ink'),
                ('graphite', 'graphite'),
@@ -87,7 +88,7 @@ class ArtworkModel(models.Model):
     artist = models.ForeignKey(User)
     image = models.ImageField(upload_to=getFilePath)
     desc = models.TextField(verbose_name="Description", max_length=500)
-    keywords = models.ManyToManyField("KeywordModel")
+    keywords = models.ManyToManyField(KeywordModel)
     
     class Meta:
         ordering = ["title"]
@@ -97,20 +98,6 @@ class ArtworkModel(models.Model):
 
     def get_absolute_url(self):
         return "/artwork/%s/" % self.id
-
-class BaseCommentModel(models.Model):
-    """
-        This object is the base comment model.
-    """
-    author = models.CharField(max_length=200, blank=False)
-    title = models.CharField(max_length=250)
-    body = models.TextField(blank=False)
-    date = models.DateTimeField(auto_now_add=True)
-    parent = models.OneToOneField("self", null=True)
-    
-    class Meta:
-        abstract = True
-        ordering = ["-date"]
 
 class CommentModel(BaseCommentModel):
     """
@@ -124,14 +111,4 @@ class CommentModel(BaseCommentModel):
     
     class Meta(BaseCommentModel.Meta):
         db_table = "artwork_commentmodel"    
-        
-class KeywordModel(models.Model):
-    """
-        This class is here so we can search artwork on keywords.
-    """
-    keyword = models.CharField(max_length=200, blank=False)
-
-    def __unicode__(self):
-        return self.keyword
-
-    # Absolute url here should be a link to search on keyword
+    
